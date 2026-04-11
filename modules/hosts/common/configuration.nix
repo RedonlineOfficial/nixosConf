@@ -2,6 +2,7 @@
 { self, inputs, ... }: {
 
   flake.nixosModules.commonConfiguration = { pkgs, ... }: {
+    imports = [ self.nixosModules.stylix ];
     # Bootloader
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;

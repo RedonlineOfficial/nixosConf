@@ -11,12 +11,7 @@
 
           globals.mapleader = " ";
 
-          theme = {
-            enable = true;
-            name = "dracula";
-            style = "dark";
-            transparent = true;
-          };
+          theme.transparent = true;
 
           lsp.enable = true;
 
