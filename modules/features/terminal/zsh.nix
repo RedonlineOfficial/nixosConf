@@ -202,7 +202,7 @@ in {
           fi
 
           print -P "%F{97}%~%f ''${vcs_info_msg_0_}"
-          PROMPT="%{$promptColor%}%f "
+          PROMPT="%{$promptColor%}%f "
         }
       '';
     };
