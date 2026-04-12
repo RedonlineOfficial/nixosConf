@@ -11,12 +11,97 @@
 
   };
 
-  flake.homeModules.hyprland = { ... }: {
+  flake.homeModules.hyprland = { pkgs, ... }: {
+
+    home.packages = with pkgs; [
+      brightnessctl
+      playerctl
+    ];
 
     wayland.windowManager.hyprland = {
       enable = true;
 
       settings = {
+
+        "$mainMod"     = "SUPER";
+        "$terminal"    = "kitty";
+        "$browser"     = "firefox";
+        "$fileExplorer" = "dolphin";
+        "$launcher"    = "wofi --show drun";
+
+        bind = [
+          # General
+          "$mainMod, Q, killactive"
+          "$mainMod SHIFT, Q, exec, command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit"
+          "$mainMod SHIFT, F, togglefloating"
+          "$mainMod SHIFT, W, exec, pkill waybar && waybar"
+
+          # Programs
+          "$mainMod, Return, exec, $terminal"
+          "$mainMod, Space, exec, pkill $launcher || $launcher"
+          "$mainMod, B, exec, $browser"
+          "$mainMod, E, exec, $fileExplorer"
+
+          # Move Focus
+          "$mainMod, h, movefocus, l"
+          "$mainMod, j, movefocus, d"
+          "$mainMod, k, movefocus, u"
+          "$mainMod, l, movefocus, r"
+          "$mainMod, 1, workspace, 1"
+          "$mainMod, 2, workspace, 2"
+          "$mainMod, 3, workspace, 3"
+          "$mainMod, 4, workspace, 4"
+          "$mainMod, 5, workspace, 5"
+          "$mainMod, 6, workspace, 6"
+          "$mainMod, 7, workspace, 7"
+          "$mainMod, 8, workspace, 8"
+          "$mainMod, 9, workspace, 9"
+
+          # Move Window
+          "$mainMod SHIFT, h, movewindow, l"
+          "$mainMod SHIFT, j, movewindow, d"
+          "$mainMod SHIFT, k, movewindow, u"
+          "$mainMod SHIFT, l, movewindow, r"
+          "$mainMod SHIFT, 1, movetoworkspace, 1"
+          "$mainMod SHIFT, 2, movetoworkspace, 2"
+          "$mainMod SHIFT, 3, movetoworkspace, 3"
+          "$mainMod SHIFT, 4, movetoworkspace, 4"
+          "$mainMod SHIFT, 5, movetoworkspace, 5"
+          "$mainMod SHIFT, 6, movetoworkspace, 6"
+          "$mainMod SHIFT, 7, movetoworkspace, 7"
+          "$mainMod SHIFT, 8, movetoworkspace, 8"
+          "$mainMod SHIFT, 9, movetoworkspace, 9"
+
+          # Scratchpad
+          "$mainMod, S, togglespecialworkspace, magic"
+          "$mainMod SHIFT, S, movetoworkspace, special:magic"
+        ];
+
+        bindm = [
+          "$mainMod, mouse:272, movewindow"
+          "$mainMod, mouse:273, resizewindow"
+        ];
+
+        bindel = [
+          # Volume
+          ",XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
+          ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+          ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+          ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+          # Brightness
+          ",XF86MonBrightnessUp, exec, brightnessctl -n2 set 5%+"
+          ",XF86MonBrightnessDown, exec, brightnessctl -n2 set 5%-"
+          "$mainMod, XF86MonBrightnessUp, exec, brightnessctl -n2 set 100%"
+          "$mainMod, XF86MonBrightnessDown, exec, brightnessctl -n2 set 10%"
+        ];
+
+        bindl = [
+          # Media
+          ", XF86AudioNext, exec, playerctl next"
+          ", XF86AudioPause, exec, playerctl play-pause"
+          ", XF86AudioPlay, exec, playerctl play-pause"
+          ", XF86AudioPrev, exec, playerctl previous"
+        ];
 
         general = {
           gaps_out = 7;
