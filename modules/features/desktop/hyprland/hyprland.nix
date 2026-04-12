@@ -144,6 +144,11 @@
           ];
         };
 
+        dwindle = {
+          pseudotile = true;
+          preserve_split = true;
+        };
+
         misc = {
           force_default_wallpaper = 1;
           disable_hyprland_logo = true;
