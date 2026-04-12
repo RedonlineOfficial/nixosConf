@@ -13,4 +13,29 @@
 
   };
 
+  flake.homeModules.noctalia = { ... }: {
+
+    imports = [ inputs.noctalia.homeModules.default ];
+
+    programs.noctalia-shell = {
+      enable = true;
+      systemd.enable = true;
+
+      settings = {
+        position = "top";
+
+        dock = {
+          enabled = true;
+          displayMode = "auto_hide";
+        };
+
+        notifications = {
+          enabled = true;
+          location = "top_right";
+        };
+      };
+    };
+
+  };
+
 }
