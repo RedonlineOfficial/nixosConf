@@ -16,6 +16,7 @@ module files.
 | `import-tree` | Auto-imports all files under `modules/` |
 | `claude-code` | Provides the `claude-code` package via overlay |
 | `nvf` | Neovim configuration framework (follows `nixpkgs`) |
+| `stylix` | System-wide theming via base16 (follows `nixpkgs`) |
 
 ## Directory Structure
 
@@ -27,9 +28,11 @@ nixosConf/
     ├── features/
     │   ├── terminal/
     │   │   ├── default.nix            # metaTerminal module
-    │   │   └── zsh.nix                # zsh module
-    │   └── neovim/
-    │       └── default.nix            # neovim module (via nvf)
+    │   │   ├── zsh.nix                # zsh module
+    │   │   └── git.nix                # git module
+    │   ├── neovim.nix                 # neovim module (via nvf)
+    │   └── stylix/
+    │       └── default.nix            # stylix module
     ├── hosts/
     │   ├── common/
     │   │   └── configuration.nix      # commonConfiguration module
