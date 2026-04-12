@@ -244,6 +244,12 @@ Or using the shell alias:
 rebuild
 ```
 
+## Claude Workflow Instructions
+
+- After completing any set of changes, propose `git add` and a `git commit` using the **Conventional Commits** standard (`feat:`, `fix:`, `refactor:`, `chore:`, etc.).
+- Always show the proposed commands and **wait for user confirmation** before running them.
+- Do not batch unrelated changes into a single commit.
+
 ## Adding a New Feature Module
 
 1. Create `modules/features/<name>/default.nix` — `import-tree` picks it up
