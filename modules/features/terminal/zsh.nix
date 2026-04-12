@@ -20,6 +20,10 @@
   in {
 
     programs.zsh = {
+      loginShellInit = ''
+        export SSH_AUTH_SOCK="/run/user/$(id -u)/ssh-agent"
+      '';
+
       histSize = 10000;
 
       setOptions = [
