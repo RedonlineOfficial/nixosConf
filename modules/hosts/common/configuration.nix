@@ -6,8 +6,7 @@
     # Bootloader
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
-
-    # Time & locale
+# Time & locale
     time.timeZone = "America/Phoenix";
     i18n.defaultLocale = "en_US.UTF-8";
 
@@ -22,6 +21,10 @@
       enable = true;
       settings.PasswordAuthentication = false;
       settings.PermitRootLogin = "no";
+    };
+
+    programs.ssh = {
+      startAgent = true;
     };
 
     nix = {
