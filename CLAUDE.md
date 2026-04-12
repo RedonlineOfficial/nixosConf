@@ -246,9 +246,12 @@ rebuild
 
 ## Claude Workflow Instructions
 
-- After completing any set of changes, propose `git add` and a `git commit` using the **Conventional Commits** standard (`feat:`, `fix:`, `refactor:`, `chore:`, etc.).
+- For any set of changes, create a new branch first, then `git add` and `git commit` using the **Conventional Commits** standard (`feat:`, `fix:`, `refactor:`, `chore:`, etc.).
 - Always show the proposed commands and **wait for user confirmation** before running them.
 - Do not batch unrelated changes into a single commit.
+- After committing, ask the user to run `rebuild` to test the build.
+- If the build succeeds, merge the branch into `main`.
+- **Important:** NixOS flakes use git to determine which files to include — untracked files are invisible to `nixos-rebuild`. Always commit (or at least stage) changes before asking the user to rebuild.
 
 ## Adding a New Feature Module
 
