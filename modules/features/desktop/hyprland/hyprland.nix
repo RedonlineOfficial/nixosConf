@@ -21,14 +21,11 @@
         general = {
           gaps_out = 7;
           border_size = 1;
-          "col.active_border" = "$color4";
-          "col.inactive_border" = "$color8";
           resize_on_border = true;
         };
 
         decoration = {
           rounding = 10;
-          shadow.color = "$background";
           blur.size = 3;
         };
 
