@@ -14,6 +14,9 @@
       # System level user definition
       self.nixosModules.joshua
 
+      # Desktop
+      self.nixosModules.metaHyprland
+
       # Apply claude-code overlay
       { nixpkgs.overlays = [ inputs.claude-code.overlays.default ]; }
 
