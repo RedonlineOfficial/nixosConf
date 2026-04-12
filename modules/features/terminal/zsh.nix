@@ -219,7 +219,7 @@ in {
           fi
 
           print -P "%F{#${c.base0E}}%~%f ''${vcs_info_msg_0_}"
-          PROMPT="%F{#${c.base0C}}[%n@%m]%f%{$promptColor%}%f> "
+          PROMPT="%F{#${c.base0C}}%n@%m%f %{$promptColor%}> %f"
         }
       '';
     };
