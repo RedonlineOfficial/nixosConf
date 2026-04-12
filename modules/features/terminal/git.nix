@@ -13,6 +13,10 @@
           email = "dev@redonline.me";
         };
         pull.rebase = false;
+        push.autoSetupRemote = true;
+        diff.colorMoved = "default";
+
+        # Commit template
         commit.template = "${pkgs.writeText "git-commit-template" ''
           ##### ================== Conventional Commit Template ==================
           ### <type>(<scope>)!: <description>
