@@ -205,6 +205,13 @@ in {
         zstyle ':vcs_info:*' check-for-changes true
         zstyle ':vcs_info:*' stagedstr   '%F{#${c.base0B}}*%f'
         zstyle ':vcs_info:*' unstagedstr '%F{#${c.base08}}!%f'
+        zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
+
+        +vi-git-untracked() {
+          if git ls-files --others --exclude-standard | grep -q .; then
+            hook_com[misc]+='%F{#${c.base0A}}?%f'
+          fi
+        }
 
         precmd() {
           local lastStatus=$?
