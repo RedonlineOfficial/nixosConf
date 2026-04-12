@@ -22,6 +22,14 @@ in {
     };
 
     security.sudo.wheelNeedsPassword = true;
+
+    home-manager.users.${userName} = {
+      home.username = userName;
+      home.homeDirectory = "/home/${userName}";
+      home.stateVersion = "25.11";
+
+      gtk.gtk4.theme = null;
+    };
   };
 
 }

@@ -16,6 +16,13 @@
 
       # Apply claude-code overlay
       { nixpkgs.overlays = [ inputs.claude-code.overlays.default ]; }
+
+      # Home manager
+      inputs.home-manager.nixosModules.home-manager
+      {
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+      }
     ];
   };
 
