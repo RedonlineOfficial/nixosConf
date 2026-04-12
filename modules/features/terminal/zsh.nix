@@ -1,8 +1,4 @@
-{ self, inputs, ... }: let
-
-  opts = "--color=always --noconfirm";
-
-in {
+{ self, inputs, ... }: {
 
   flake.nixosModules.zsh = { pkgs, config, ... }: let
     c = config.lib.stylix.colors;
