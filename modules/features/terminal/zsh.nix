@@ -4,7 +4,24 @@
 
 in {
 
-  flake.nixosModules.zsh = { pkgs, ... }: {
+  flake.nixosModules.zsh = { pkgs, config, ... }: let
+    c = config.lib.stylix.colors;
+
+    # Convert a 6-char lowercase hex string (e.g. "50fa7b") to a true-color
+    # ANSI foreground escape sequence for use in shell variables.
+    hexDigit = d: {
+      "0"=0; "1"=1; "2"=2; "3"=3; "4"=4; "5"=5; "6"=6; "7"=7;
+      "8"=8; "9"=9; "a"=10; "b"=11; "c"=12; "d"=13; "e"=14; "f"=15;
+    }.${d};
+    hexByte  = s: hexDigit (builtins.substring 0 1 s) * 16
+                + hexDigit (builtins.substring 1 1 s);
+    toAnsi   = hex:
+      let
+        r = hexByte (builtins.substring 0 2 hex);
+        g = hexByte (builtins.substring 2 2 hex);
+        b = hexByte (builtins.substring 4 2 hex);
+      in "\\e[38;2;${toString r};${toString g};${toString b}m";
+  in {
 
     programs.zsh = {
       histSize = 10000;
@@ -184,10 +201,10 @@ in {
 
         autoload -Uz vcs_info
         zstyle ':vcs_info:*' enable git
-        zstyle ':vcs_info:git:*' formats '\e[38;5;6m %b\e[0m %m%u%c %a'
+        zstyle ':vcs_info:git:*' formats ' %F{#${c.base0C}}%b%f %m%u%c %a'
         zstyle ':vcs_info:*' check-for-changes true
-        zstyle ':vcs_info:*' stagedstr   '\e[38;5;40m*\e[0m'
-        zstyle ':vcs_info:*' unstagedstr '\e[38;5;9m!\e[0m'
+        zstyle ':vcs_info:*' stagedstr   '%F{#${c.base0B}}*%f'
+        zstyle ':vcs_info:*' unstagedstr '%F{#${c.base08}}!%f'
 
         precmd() {
           local lastStatus=$?
@@ -196,13 +213,13 @@ in {
 
           local promptColor
           if [[ $lastStatus -eq 0 ]]; then
-            promptColor=$'\e[38;5;34m'
+            promptColor=$'${toAnsi c.base0B}'
           else
-            promptColor=$'\e[38;5;124m'
+            promptColor=$'${toAnsi c.base08}'
           fi
 
-          print -P "%F{97}%~%f ''${vcs_info_msg_0_}"
-          PROMPT="%{$promptColor%}%f "
+          print -P "%F{#${c.base0E}}%~%f ''${vcs_info_msg_0_}"
+          PROMPT="%F{#${c.base0C}}[%n@%m]%f%{$promptColor%}%f> "
         }
       '';
     };
