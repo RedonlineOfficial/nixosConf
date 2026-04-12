@@ -15,9 +15,7 @@
     networking.networkmanager.enable = true;
 
     # Common system packages
-    environment.systemPackages = with pkgs; [
-      git
-    ];
+    environment.systemPackages = with pkgs; [];
 
     # SSH
     services.openssh = {
