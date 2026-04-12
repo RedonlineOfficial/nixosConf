@@ -3,7 +3,9 @@
     "allow": [
       "Bash(grep -v '^$')",
       "WebFetch(domain:nvf.notashelf.dev)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:docs.noctalia.dev)",
+      "WebFetch(domain:raw.githubusercontent.com)"
     ]
   }
 }
