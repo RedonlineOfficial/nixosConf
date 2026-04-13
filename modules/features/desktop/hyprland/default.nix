@@ -7,6 +7,7 @@
       self.nixosModules.hyprland
       self.nixosModules.noctalia
       self.nixosModules.kitty
+      self.nixosModules.dolphin
     ];
 
   };
@@ -17,6 +18,7 @@
       self.homeModules.hyprland
       self.homeModules.noctalia
       self.homeModules.kitty
+      self.homeModules.dolphin
     ];
 
   };
