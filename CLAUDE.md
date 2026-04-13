@@ -38,7 +38,8 @@ nixosConf/
     │   │       ├── default.nix        # nixosModules.metaHyprland + homeModules.metaHyprland
     │   │       ├── hyprland.nix       # nixosModules.hyprland + homeModules.hyprland
     │   │       ├── noctalia.nix       # nixosModules.noctalia + homeModules.noctalia
-    │   │       └── kitty.nix          # nixosModules.kitty + homeModules.kitty
+    │   │       ├── kitty.nix          # nixosModules.kitty + homeModules.kitty
+    │   │       └── waybar.nix         # nixosModules.waybar + homeModules.waybar
     │   ├── neovim.nix                 # neovim module (via nvf)
     │   └── stylix/
     │       └── default.nix            # stylix module (theme, fonts, wallpaper, opacity)
@@ -254,6 +255,42 @@ language module.
 |---|---|
 | `J` | Move selection down |
 | `K` | Move selection up |
+
+## Waybar (`features/desktop/hyprland/waybar.nix`)
+
+Managed via `homeModules.waybar`. Stylix auto-theming is disabled
+(`stylix.targets.waybar.enable = false`) — colors are applied manually using
+`config.lib.stylix.colors`.
+
+### Layout
+
+Three floating pills at the top of the screen:
+
+| Pill | Modules |
+|---|---|
+| Left | `hyprland/workspaces`, `hyprland/window` |
+| Center | `clock` |
+| Right | `pulseaudio`, `backlight`, `bluetooth`, `network`, `battery` |
+
+### Styling
+
+- Pills: `background-color: base00`, `border: 2px solid base02`,
+  `border-radius: 999px`, `margin: 6px 0`
+- All text: `base03` (matches inactive workspace button color)
+- State overrides: `base08` for disconnected/critical, `base0A` for battery
+  warning, `base0E` for active workspace
+- Active workspace: `background-color: base02`, `color: base0E`
+
+### Separators
+
+Separators between right pill modules are embedded directly in each module's
+format string (e.g. `"|  󰂯  {status}"`), so they disappear automatically
+if a module is hidden (e.g. backlight on a machine with no screen).
+
+### Clock
+
+`format = "󰥔 {:%H:%M | 󰃭  %A, %B %d %Y}"` — 24-hour time and full spelled-out
+date always visible. Hover tooltip shows a calendar.
 
 ## Applying Changes
 
