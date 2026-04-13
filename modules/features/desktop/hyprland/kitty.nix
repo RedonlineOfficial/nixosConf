@@ -18,8 +18,21 @@
       };
 
       keybindings = {
+        # OS window / tab management
         "ctrl+shift+n" = "new_os_window_with_cwd";
         "ctrl+shift+q" = "close_window";
+        "ctrl+shift+]" = "next_tab";
+        "ctrl+shift+[" = "previous_tab";
+
+        # Window splits (vim-like)
+        "ctrl+shift+v" = "launch --location=vsplit --cwd=current";
+        "ctrl+shift+s" = "launch --location=hsplit --cwd=current";
+
+        # Window focus (vim-like hjkl — remaps kitty defaults)
+        "ctrl+shift+h" = "neighboring_window left";
+        "ctrl+shift+j" = "neighboring_window bottom";
+        "ctrl+shift+k" = "neighboring_window top";
+        "ctrl+shift+l" = "neighboring_window right";
       };
     };
 
