@@ -17,7 +17,7 @@
     home.packages = with pkgs; [
       firefox
       protonmail-desktop
-      bitwarden
+      bitwarden-desktop
       yubioath-flutter
       spotify
     ];

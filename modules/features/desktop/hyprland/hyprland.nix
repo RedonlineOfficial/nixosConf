@@ -27,7 +27,7 @@
           "[workspace 1 silent] kitty"
           "[workspace 2 silent] kitty"
           "[workspace special:magic silent] kitty"
-          "[workspace special:security silent] bitwarden"
+          "[workspace special:security silent] bitwarden-desktop"
           "[workspace special:security silent] yubioath-flutter"
           "[workspace special:spotify silent] spotify"
         ];
