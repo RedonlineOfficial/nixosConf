@@ -33,8 +33,8 @@
             "5" = [];
           };
           format-icons = {
-            "1" = "";   # nf-dev-terminal
-            "2" = "";   # nf-dev-terminal
+            "1" = "";   # nf-dev-terminal
+            "2" = "";   # nf-dev-terminal
             "3" = "󰈹"; # nf-md-firefox
             "4" = "󰍥"; # nf-md-message_text
             "5" = "󰇮"; # nf-md-email
