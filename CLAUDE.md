@@ -17,6 +17,8 @@ module files.
 | `claude-code` | Provides the `claude-code` package via overlay |
 | `nvf` | Neovim configuration framework (follows `nixpkgs`) |
 | `stylix` | System-wide theming via base16 (follows `nixpkgs`) |
+| `noctalia` | Noctalia shell (dock, bar, notifications — follows `nixpkgs`) |
+| `home-manager` | User environment management (follows `nixpkgs`) |
 
 ## Directory Structure
 
@@ -30,9 +32,16 @@ nixosConf/
     │   │   ├── default.nix            # metaTerminal module
     │   │   ├── zsh.nix                # zsh module
     │   │   └── git.nix                # git module
+    │   ├── desktop/
+    │   │   ├── common.nix             # commonDesktop module (bluetooth, power, fonts)
+    │   │   └── hyprland/
+    │   │       ├── default.nix        # nixosModules.metaHyprland + homeModules.metaHyprland
+    │   │       ├── hyprland.nix       # nixosModules.hyprland + homeModules.hyprland
+    │   │       ├── noctalia.nix       # nixosModules.noctalia + homeModules.noctalia
+    │   │       └── kitty.nix          # nixosModules.kitty + homeModules.kitty
     │   ├── neovim.nix                 # neovim module (via nvf)
     │   └── stylix/
-    │       └── default.nix            # stylix module
+    │       └── default.nix            # stylix module (theme, fonts, wallpaper, opacity)
     ├── hosts/
     │   ├── common/
     │   │   └── configuration.nix      # commonConfiguration module
@@ -42,22 +51,24 @@ nixosConf/
     │       └── hardware-configuration.nix
     └── users/
         └── joshua/
-            └── default.nix            # joshua module
+            └── default.nix            # joshua module (imports metaTerminal + home-manager config)
 ```
 
 ## Module System
 
 Every file under `modules/` is auto-loaded by `import-tree` and contributes
 to the flake outputs via `flake-parts`. Modules expose themselves as named
-`flake.nixosModules.<name>` entries, which are then composed in
-`hosts/nixos-demo/default.nix`.
+`flake.nixosModules.<name>` or `flake.homeModules.<name>` entries, which are
+then composed in host and user modules.
 
 **Host module composition** (`hosts/nixos-demo/default.nix`):
 - `nixos-demoConfiguration` — hostname, stateVersion
 - `nixos-demoHardware` — hardware-configuration.nix
 - `commonConfiguration` — bootloader, locale, networking, nix settings, git
-- `joshua` — user definition, imports `metaTerminal`
+- `joshua` — user definition, imports `metaTerminal` + `homeModules.metaHyprland`
+- `metaHyprland` — full Hyprland desktop (system-level)
 - claude-code overlay inline
+- home-manager NixOS module
 
 **metaTerminal** (`features/terminal/default.nix`) pulls in:
 - `zsh` module
@@ -65,8 +76,19 @@ to the flake outputs via `flake-parts`. Modules expose themselves as named
 - `lsd` package
 - `zoxide` with zsh integration
 
-This means any host that imports a user who imports `metaTerminal` gets the
-full terminal environment automatically.
+**nixosModules.metaHyprland** (`features/desktop/hyprland/default.nix`) pulls in:
+- `commonDesktop` — bluetooth, power-profiles, upower, FiraCode font
+- `hyprland` — `programs.hyprland.enable`, XDG portal paths
+- `noctalia` — Noctalia shell system module + binary cache
+- `kitty` — (system-level stub)
+
+**homeModules.metaHyprland** (`features/desktop/hyprland/default.nix`) pulls in:
+- `homeModules.hyprland` — Hyprland appearance, keybindings, window rules
+- `homeModules.noctalia` — Noctalia bar, dock, notifications, fonts
+- `homeModules.kitty` — Kitty config, tab bar, session, keybindings
+
+A user module that imports both `metaTerminal` (NixOS) and `homeModules.metaHyprland`
+(home-manager) gets the full terminal + desktop environment automatically.
 
 ## System Settings (commonConfiguration)
 
