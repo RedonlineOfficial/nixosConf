@@ -46,10 +46,11 @@
       launch zsh
       launch --location=vsplit claude
 
-      # Tab 2: Default terminal (defined last so it is active on startup)
+      # Tab 2: Default terminal (focus marks this as the active tab on startup)
       new_tab Terminal
       cd ~
       launch zsh
+      focus
     '';
 
     home.file.".config/kitty/tab_bar.py".text = ''
