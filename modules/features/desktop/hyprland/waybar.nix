@@ -4,7 +4,7 @@
 
   flake.homeModules.waybar = { pkgs, ... }: {
 
-    stylix.targets.waybar.enable = false;
+    stylix.targets.waybar.enable = true;
 
     programs.waybar = {
       enable = true;
@@ -89,15 +89,15 @@
 
         window#waybar {
           background-color: transparent;
-          color: #f8f8f2;
+          color: @base05;
         }
 
         /* Pill containers for each group */
         .modules-left,
         .modules-center,
         .modules-right {
-          background-color: #282a36;
-          border: 2px solid #44475a;
+          background-color: @base00;
+          border: 2px solid @base02;
           border-radius: 999px;
           margin: 6px 0;
           padding: 0 8px;
@@ -106,35 +106,35 @@
         /* Workspace buttons */
         #workspaces button {
           padding: 0 10px;
-          color: #9ea8c7;
+          color: @base03;
           background-color: transparent;
           border-radius: 999px;
           margin: 4px 2px;
         }
 
         #workspaces button:hover {
-          background-color: #44475a;
-          color: #f8f8f2;
+          background-color: @base02;
+          color: @base05;
         }
 
         #workspaces button.active {
-          background-color: #44475a;
-          color: #bd93f9;
+          background-color: @base02;
+          color: @base0E;
         }
 
         #workspaces button.urgent {
-          background-color: #ff5555;
-          color: #f8f8f2;
+          background-color: @base08;
+          color: @base05;
         }
 
         #window {
           padding: 0 12px;
-          color: #9ea8c7;
+          color: @base03;
         }
 
         #clock {
           padding: 0 16px;
-          color: #f8f8f2;
+          color: @base05;
         }
 
         #pulseaudio,
@@ -143,28 +143,28 @@
         #network,
         #battery {
           padding: 0 12px;
-          color: #f8f8f2;
+          color: @base05;
         }
 
         #pulseaudio.muted {
-          color: #6272a4;
+          color: @base03;
         }
 
         #bluetooth.off,
         #bluetooth.disabled {
-          color: #6272a4;
+          color: @base03;
         }
 
         #network.disconnected {
-          color: #ff5555;
+          color: @base08;
         }
 
         #battery.warning {
-          color: #f1fa8c;
+          color: @base0A;
         }
 
         #battery.critical {
-          color: #ff5555;
+          color: @base08;
         }
       '';
     };
