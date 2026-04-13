@@ -11,6 +11,11 @@
 
   };
 
-  flake.homeModules.dolphin = { ... }: { };
+  flake.homeModules.dolphin = { ... }: {
+
+    stylix.targets.qt.enable = true;
+    stylix.targets.kde.enable = true;
+
+  };
 
 }
