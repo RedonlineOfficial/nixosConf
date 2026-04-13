@@ -26,8 +26,10 @@
         "exec-once" = [
           "[workspace 1 silent] kitty"
           "[workspace 2 silent] kitty"
+          "[workspace 3 silent] firefox"
+          "[workspace 5 silent] protonmail-desktop"
           "[workspace special:magic silent] kitty"
-          "[workspace special:security silent] bitwarden-desktop"
+          "[workspace special:security silent] bitwarden"
           "[workspace special:security silent] yubioath-flutter"
           "[workspace special:spotify silent] spotify"
         ];
