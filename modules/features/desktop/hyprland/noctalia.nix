@@ -33,6 +33,11 @@
           enabled = true;
           location = "top_right";
         };
+
+        ui = {
+          fontDefault = "DejaVu Sans";
+          fontFixed = "Hack Nerd Font Mono";
+        };
       };
     };
 
