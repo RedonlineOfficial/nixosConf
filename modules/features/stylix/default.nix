@@ -7,6 +7,13 @@
       enable = true;
       base16Scheme = "${pkgs.base16-schemes}/share/themes/dracula.yaml";
 
+      fonts = {
+        monospace = {
+          package = pkgs.nerd-fonts.hack;
+          name = "Hack Nerd Font Mono";
+        };
+      };
+
       # Solid dracula-background wallpaper (used by desktop wallpaper targets)
       image = pkgs.runCommand "dracula-wallpaper.png" {
         nativeBuildInputs = [ pkgs.imagemagick ];
