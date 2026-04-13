@@ -27,6 +27,7 @@ in {
       imports = [
         self.homeModules.hyprland
         self.homeModules.noctalia
+        self.homeModules.kitty
       ];
 
       home.username = userName;

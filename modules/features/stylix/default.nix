@@ -12,7 +12,10 @@
           package = pkgs.nerd-fonts.hack;
           name = "Hack Nerd Font Mono";
         };
+        sizes.terminal = 11;
       };
+
+      opacity.terminal = 0.5;
 
       image = pkgs.fetchurl {
         url = "https://raw.githubusercontent.com/dracula/wallpaper/master/first-collection/nixos.png";
