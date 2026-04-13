@@ -5,7 +5,7 @@
 
     stylix = {
       enable = true;
-      base16Scheme = ./dracula.yaml;
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/dracula.yaml";
 
       fonts = {
         monospace = {
