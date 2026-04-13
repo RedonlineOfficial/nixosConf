@@ -16,7 +16,7 @@
       settings = [{
         layer    = "top";
         position = "top";
-        height   = 36;
+        height   = 26;
         spacing  = 0;
 
         modules-left   = [ "hyprland/workspaces" "hyprland/window" ];
@@ -125,7 +125,7 @@
 
         /* Workspace buttons */
         #workspaces button {
-          padding: 0 10px;
+          padding: 0 5px;
           color: #${base03};
           background-color: transparent;
           border-radius: 999px;
@@ -156,13 +156,13 @@
 
         #workspaces button.special.active {
           min-width: unset;
-          padding: 0 10px;
+          padding: 0 5px;
           margin: 4px 2px;
           opacity: 1;
         }
 
         #window {
-          padding: 0 6px;
+          padding: 0 5px;
           color: #${base03};
         }
 
@@ -176,7 +176,7 @@
         #bluetooth,
         #network,
         #battery {
-          padding: 0 6px;
+          padding: 0 5px;
           color: #${base05};
         }
 
