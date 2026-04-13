@@ -167,7 +167,7 @@
 
         #clock {
           padding: 0 8px;
-          color: #${base05};
+          color: #${base03};
         }
 
         #pulseaudio,
@@ -176,7 +176,7 @@
         #network,
         #battery {
           padding: 0 5px;
-          color: #${base05};
+          color: #${base03};
         }
 
         #pulseaudio.muted {
