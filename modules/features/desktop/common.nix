@@ -12,4 +12,16 @@
 
   };
 
+  flake.homeModules.commonDesktop = { pkgs, ... }: {
+
+    home.packages = with pkgs; [
+      firefox
+      proton-mail
+      bitwarden
+      yubioath-flutter
+      spotify
+    ];
+
+  };
+
 }

@@ -16,6 +16,7 @@
   flake.homeModules.metaHyprland = { ... }: {
 
     imports = [
+      self.homeModules.commonDesktop
       self.homeModules.hyprland
       self.homeModules.waybar
       self.homeModules.mako
