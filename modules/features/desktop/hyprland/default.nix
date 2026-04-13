@@ -11,4 +11,14 @@
 
   };
 
+  flake.homeModules.metaHyprland = { ... }: {
+
+    imports = [
+      self.homeModules.hyprland
+      self.homeModules.noctalia
+      self.homeModules.kitty
+    ];
+
+  };
+
 }

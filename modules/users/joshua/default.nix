@@ -25,9 +25,7 @@ in {
 
     home-manager.users.${userName} = {
       imports = [
-        self.homeModules.hyprland
-        self.homeModules.noctalia
-        self.homeModules.kitty
+        self.homeModules.metaHyprland
       ];
 
       home.username = userName;
