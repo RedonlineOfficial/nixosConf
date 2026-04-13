@@ -17,7 +17,7 @@
         layer    = "top";
         position = "top";
         height   = 36;
-        spacing  = 4;
+        spacing  = 0;
 
         modules-left   = [ "hyprland/workspaces" "hyprland/window" ];
         modules-center = [ "clock" ];
@@ -162,12 +162,12 @@
         }
 
         #window {
-          padding: 0 12px;
+          padding: 0 6px;
           color: #${base03};
         }
 
         #clock {
-          padding: 0 16px;
+          padding: 0 8px;
           color: #${base05};
         }
 
@@ -176,7 +176,7 @@
         #bluetooth,
         #network,
         #battery {
-          padding: 0 12px;
+          padding: 0 6px;
           color: #${base05};
         }
 
