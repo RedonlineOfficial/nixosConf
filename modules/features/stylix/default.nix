@@ -14,12 +14,10 @@
         };
       };
 
-      # Solid dracula-background wallpaper (used by desktop wallpaper targets)
-      image = pkgs.runCommand "dracula-wallpaper.png" {
-        nativeBuildInputs = [ pkgs.imagemagick ];
-      } ''
-        convert -size 1920x1080 xc:'#282a36' "$out"
-      '';
+      image = pkgs.fetchurl {
+        url = "https://raw.githubusercontent.com/dracula/wallpaper/master/first-collection/nixos.png";
+        sha256 = "0q9wd4g7fyzy38dkmknkz2p58xxh03yk916zdyqhlj0qagxnr444";
+      };
 
       targets = {
         nvf.enable = true;
