@@ -27,7 +27,7 @@
           "[workspace 1 silent] kitty"
           "[workspace 2 silent] kitty"
           "[workspace 3 silent] firefox"
-          "[workspace 5 silent] protonmail-desktop"
+          "[workspace 5 silent] proton-mail"
           "[workspace special:magic silent] kitty"
           "[workspace special:security silent] bitwarden"
           "[workspace special:security silent] yubioath-flutter"
