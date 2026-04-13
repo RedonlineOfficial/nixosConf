@@ -23,6 +23,15 @@
 
       settings = {
 
+        "exec-once" = [
+          "[workspace 1 silent] kitty"
+          "[workspace 2 silent] kitty"
+          "[workspace special:magic silent] kitty"
+          "[workspace special:security silent] bitwarden"
+          "[workspace special:security silent] yubioath-flutter"
+          "[workspace special:spotify silent] spotify"
+        ];
+
         "$mainMod"     = "SUPER";
         "$terminal"    = "kitty";
         "$browser"     = "firefox";
@@ -72,9 +81,10 @@
           "$mainMod SHIFT, 8, movetoworkspace, 8"
           "$mainMod SHIFT, 9, movetoworkspace, 9"
 
-          # Scratchpad
+          # Special workspaces
           "$mainMod, S, togglespecialworkspace, magic"
-          "$mainMod SHIFT, S, movetoworkspace, special:magic"
+          "$mainMod, A, togglespecialworkspace, security"
+          "$mainMod, M, togglespecialworkspace, spotify"
         ];
 
         bindm = [
