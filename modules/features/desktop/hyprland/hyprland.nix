@@ -26,7 +26,7 @@
         "$mainMod"     = "SUPER";
         "$terminal"    = "kitty";
         "$browser"     = "firefox";
-        "$fileExplorer" = "dolphin";
+        "$fileExplorer" = "nemo";
         "$launcher"    = "wofi --show drun";
 
         bind = [
