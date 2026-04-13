@@ -15,6 +15,8 @@
         tab_bar_edge = "top";
         tab_bar_style = "custom";
         tab_bar_min_tabs = 1;
+
+        startup_session = "kitty.session";
       };
 
       keybindings = {
@@ -35,6 +37,20 @@
         "ctrl+shift+l" = "neighboring_window right";
       };
     };
+
+    home.file.".config/kitty/kitty.session".text = ''
+      # Tab 1: NixOS config workspace
+      new_tab nixosConf
+      cd ~/nixosConf
+      layout splits
+      launch zsh
+      launch --location=vsplit claude
+
+      # Tab 2: Default terminal (defined last so it is active on startup)
+      new_tab Terminal
+      cd ~
+      launch zsh
+    '';
 
     home.file.".config/kitty/tab_bar.py".text = ''
       from datetime import datetime
