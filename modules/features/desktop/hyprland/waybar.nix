@@ -2,9 +2,9 @@
 
   flake.nixosModules.waybar = { ... }: { };
 
-  flake.homeModules.waybar = { pkgs, ... }: {
+  flake.homeModules.waybar = { pkgs, config, ... }: {
 
-    stylix.targets.waybar.enable = true;
+    stylix.targets.waybar.enable = false;
 
     programs.waybar = {
       enable = true;
@@ -76,7 +76,7 @@
         };
       }];
 
-      style = ''
+      style = with config.lib.stylix.colors; ''
         * {
           font-family: "Hack Nerd Font Mono";
           font-size: 13px;
@@ -89,15 +89,15 @@
 
         window#waybar {
           background-color: transparent !important;
-          color: @base05;
+          color: #${base05};
         }
 
         /* Pill containers for each group */
         .modules-left,
         .modules-center,
         .modules-right {
-          background-color: @base00;
-          border: 2px solid @base02;
+          background-color: #${base00};
+          border: 2px solid #${base02};
           border-radius: 999px;
           margin: 6px 0;
           padding: 0 8px;
@@ -106,35 +106,35 @@
         /* Workspace buttons */
         #workspaces button {
           padding: 0 10px;
-          color: @base03;
+          color: #${base03};
           background-color: transparent;
           border-radius: 999px;
           margin: 4px 2px;
         }
 
         #workspaces button:hover {
-          background-color: @base02;
-          color: @base05;
+          background-color: #${base02};
+          color: #${base05};
         }
 
         #workspaces button.active {
-          background-color: @base02;
-          color: @base0E;
+          background-color: #${base02};
+          color: #${base0E};
         }
 
         #workspaces button.urgent {
-          background-color: @base08;
-          color: @base05;
+          background-color: #${base08};
+          color: #${base05};
         }
 
         #window {
           padding: 0 12px;
-          color: @base03;
+          color: #${base03};
         }
 
         #clock {
           padding: 0 16px;
-          color: @base05;
+          color: #${base05};
         }
 
         #pulseaudio,
@@ -143,28 +143,28 @@
         #network,
         #battery {
           padding: 0 12px;
-          color: @base05;
+          color: #${base05};
         }
 
         #pulseaudio.muted {
-          color: @base03;
+          color: #${base03};
         }
 
         #bluetooth.off,
         #bluetooth.disabled {
-          color: @base03;
+          color: #${base03};
         }
 
         #network.disconnected {
-          color: @base08;
+          color: #${base08};
         }
 
         #battery.warning {
-          color: @base0A;
+          color: #${base0A};
         }
 
         #battery.critical {
-          color: @base08;
+          color: #${base08};
         }
       '';
     };
