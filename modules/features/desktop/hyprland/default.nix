@@ -5,7 +5,8 @@
     imports = [
       self.nixosModules.commonDesktop
       self.nixosModules.hyprland
-      self.nixosModules.noctalia
+      self.nixosModules.waybar
+      self.nixosModules.mako
       self.nixosModules.kitty
       self.nixosModules.nemo
     ];
@@ -16,7 +17,8 @@
 
     imports = [
       self.homeModules.hyprland
-      self.homeModules.noctalia
+      self.homeModules.waybar
+      self.homeModules.mako
       self.homeModules.kitty
       self.homeModules.nemo
     ];
