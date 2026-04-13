@@ -22,10 +22,27 @@
 
         "hyprland/workspaces" = {
           format = "{icon}";
+          persistent-workspaces = {
+            "1" = [];
+            "2" = [];
+            "3" = [];
+            "4" = [];
+            "5" = [];
+          };
           format-icons = {
-            default = "";
-            active  = "";
-            urgent  = "";
+            "1" = "";   # nf-dev-terminal
+            "2" = "";   # nf-dev-terminal
+            "3" = "󰈹"; # nf-md-firefox
+            "4" = "󰍥"; # nf-md-message_text
+            "5" = "󰇮"; # nf-md-email
+            "6" = "⏺"; # nf-oct-dot_fill
+            "7" = "⏺";
+            "8" = "⏺";
+            "9" = "⏺";
+            "special:magic"    = "󰎚"; # nf-md-notebook
+            "special:security" = "󰻫"; # nf-md-fingerprint
+            "special:spotify"  = "󰓇"; # nf-md-spotify
+            urgent = "";
           };
         };
 
@@ -125,6 +142,20 @@
         #workspaces button.urgent {
           background-color: #${base08};
           color: #${base05};
+        }
+
+        #workspaces button.special {
+          min-width: 0;
+          padding: 0;
+          margin: 0;
+          opacity: 0;
+        }
+
+        #workspaces button.special.active {
+          min-width: unset;
+          padding: 0 10px;
+          margin: 4px 2px;
+          opacity: 1;
         }
 
         #window {
