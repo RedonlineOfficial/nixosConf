@@ -21,7 +21,7 @@
 
         modules-left   = [ "hyprland/workspaces" "hyprland/window" ];
         modules-center = [ "clock" ];
-        modules-right  = [ "pulseaudio" "backlight" "bluetooth" "network" "battery" ];
+        modules-right  = [ "pulseaudio" "custom/sep" "backlight" "custom/sep" "bluetooth" "custom/sep" "network" "custom/sep" "battery" ];
 
         "hyprland/workspaces" = {
           format = "{icon}";
@@ -83,6 +83,12 @@
           format-ethernet    = "󰈀  Ethernet";
           format-disconnected = "󰤭  Disconnected";
           tooltip-format     = "{ifname}: {ipaddr}";
+        };
+
+        "custom/sep" = {
+          format   = "|";
+          interval = "once";
+          tooltip  = false;
         };
 
         battery = {
@@ -178,6 +184,11 @@
         #battery {
           padding: 0 5px;
           color: #${base05};
+        }
+
+        #custom-sep {
+          color: #${base02};
+          padding: 0 2px;
         }
 
         #pulseaudio.muted {
