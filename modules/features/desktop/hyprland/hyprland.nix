@@ -154,6 +154,10 @@
           disable_hyprland_logo = true;
         };
 
+        env = [
+          "QT_QPA_PLATFORMTHEME,qt6ct"
+        ];
+
       };
 
       extraConfig = ''
