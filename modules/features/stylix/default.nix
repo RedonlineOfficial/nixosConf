@@ -12,6 +12,9 @@
           package = pkgs.nerd-fonts.hack;
           name = "Hack Nerd Font Mono";
         };
+        packages = [
+          pkgs.nerd-fonts.fira-code
+        ];
       };
 
       # Solid dracula-background wallpaper (used by desktop wallpaper targets)
