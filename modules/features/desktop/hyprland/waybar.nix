@@ -88,7 +88,7 @@
         }
 
         window#waybar {
-          background-color: transparent;
+          background-color: transparent !important;
           color: @base05;
         }
 
