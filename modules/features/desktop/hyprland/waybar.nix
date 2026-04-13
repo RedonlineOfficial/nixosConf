@@ -21,7 +21,7 @@
 
         modules-left   = [ "hyprland/workspaces" "hyprland/window" ];
         modules-center = [ "clock" ];
-        modules-right  = [ "pulseaudio" "custom/sep" "backlight" "custom/sep" "bluetooth" "custom/sep" "network" "custom/sep" "battery" ];
+        modules-right  = [ "pulseaudio" "backlight" "bluetooth" "network" "battery" ];
 
         "hyprland/workspaces" = {
           format = "{icon}";
@@ -67,33 +67,27 @@
         };
 
         backlight = {
-          format       = "{icon}  {percent}%";
+          format       = "|  {icon}  {percent}%";
           format-icons = [ "󰃞" "󰃟" "󰃠" ];
         };
 
         bluetooth = {
-          format           = "󰂯  {status}";
-          format-connected = "󰂱  {device_alias}";
-          format-off       = "󰂲  Off";
+          format           = "|  󰂯  {status}";
+          format-connected = "|  󰂱  {device_alias}";
+          format-off       = "|  󰂲  Off";
           on-click         = "blueman-manager";
         };
 
         network = {
-          format-wifi        = "󰤨  {essid}";
-          format-ethernet    = "󰈀  Ethernet";
-          format-disconnected = "󰤭  Disconnected";
-          tooltip-format     = "{ifname}: {ipaddr}";
-        };
-
-        "custom/sep" = {
-          format   = "|";
-          interval = "once";
-          tooltip  = false;
+          format-wifi         = "|  󰤨  {essid}";
+          format-ethernet     = "|  󰈀  Ethernet";
+          format-disconnected = "|  󰤭  Disconnected";
+          tooltip-format      = "{ifname}: {ipaddr}";
         };
 
         battery = {
-          format          = "{icon}  {capacity}%";
-          format-charging = "󰂄  {capacity}%";
+          format          = "|  {icon}  {capacity}%";
+          format-charging = "|  󰂄  {capacity}%";
           format-icons    = [ "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
           states = {
             warning  = 30;
@@ -184,11 +178,6 @@
         #battery {
           padding: 0 5px;
           color: #${base05};
-        }
-
-        #custom-sep {
-          color: #${base02};
-          padding: 0 2px;
         }
 
         #pulseaudio.muted {
