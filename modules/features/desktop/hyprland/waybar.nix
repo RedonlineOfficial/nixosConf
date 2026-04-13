@@ -88,20 +88,26 @@
         }
 
         window#waybar {
-          background-color: #282a36;
+          background-color: transparent;
           color: #f8f8f2;
-          border-bottom: 2px solid #44475a;
         }
 
-        #workspaces {
-          margin: 0 4px;
+        /* Pill containers for each group */
+        .modules-left,
+        .modules-center,
+        .modules-right {
+          background-color: #282a36;
+          border-radius: 999px;
+          margin: 6px 0;
+          padding: 0 8px;
         }
 
+        /* Workspace buttons */
         #workspaces button {
           padding: 0 10px;
           color: #9ea8c7;
           background-color: transparent;
-          border-radius: 4px;
+          border-radius: 999px;
           margin: 4px 2px;
         }
 
