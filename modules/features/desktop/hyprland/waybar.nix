@@ -97,6 +97,7 @@
         .modules-center,
         .modules-right {
           background-color: #282a36;
+          border: 2px solid #44475a;
           border-radius: 999px;
           margin: 6px 0;
           padding: 0 8px;
