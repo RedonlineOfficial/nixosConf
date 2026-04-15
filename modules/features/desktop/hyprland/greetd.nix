@@ -1,16 +1,8 @@
 { self, inputs, ... }: {
 
-  flake.nixosModules.greetd = { pkgs, ... }: {
+  flake.nixosModules.greetd = { ... }: {
 
-    services.greetd = {
-      enable = true;
-      settings = {
-        default_session = {
-          command = "${pkgs.tuigreet}/bin/tuigreet --time --asterisks --remember --cmd start-hyprland";
-          user = "greeter";
-        };
-      };
-    };
+    programs.regreet.enable = true;
 
   };
 
