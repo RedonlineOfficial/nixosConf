@@ -24,8 +24,10 @@
     };
 
     # GPG — local agent for direct sessions; forwarded agent takes over via RemoteForward when SSH'd in
+    # enableSSHSupport allows the YubiKey auth subkey to be used as SSH key locally
     programs.gnupg.agent = {
       enable = true;
+      enableSSHSupport = true;
       pinentryPackage = pkgs.pinentry-gnome3;
     };
 
