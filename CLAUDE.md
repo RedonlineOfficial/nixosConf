@@ -167,7 +167,8 @@ Boot the NixOS live ISO and connect to the internet, then run a single
 command that partitions, formats, mounts, and installs NixOS:
 
 ```bash
-sudo nix run 'github:nix-community/disko#disko-install' -- \
+sudo nix --extra-experimental-features 'nix-command flakes' \
+  run 'github:nix-community/disko#disko-install' -- \
   --flake 'github:RedonlineOfficial/nixosConf#<hostname>' \
   --disk main /dev/<device> \
   --write-efi-boot-entries
