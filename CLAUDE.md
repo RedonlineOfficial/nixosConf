@@ -2,7 +2,7 @@
 
 ## Overview
 
-A NixOS flake-based configuration for `nixos-demo` (x86_64-linux). Uses
+A NixOS flake-based configuration for multiple hosts (x86_64-linux). Uses
 `flake-parts` for output composition and `import-tree` to automatically load
 all Nix files under `modules/` — no manual imports needed when adding new
 module files.
@@ -19,6 +19,7 @@ module files.
 | `stylix` | System-wide theming via base16 (follows `nixpkgs`) |
 | `noctalia` | Noctalia shell (dock, bar, notifications — follows `nixpkgs`) |
 | `home-manager` | User environment management (follows `nixpkgs`) |
+| `disko` | Declarative disk partitioning (follows `nixpkgs`) |
 
 ## Directory Structure
 
@@ -46,13 +47,19 @@ nixosConf/
     ├── hosts/
     │   ├── common/
     │   │   └── configuration.nix      # commonConfiguration module
-    │   └── nixos-demo/
-    │       ├── default.nix            # nixosConfigurations.nixos-demo
-    │       ├── configuration.nix      # nixos-demoConfiguration module
-    │       └── hardware-configuration.nix
+    │   ├── nixos-demo/
+    │   │   ├── default.nix            # nixosConfigurations.nixos-demo
+    │   │   ├── configuration.nix      # nixos-demoConfiguration module
+    │   │   └── hardware-configuration.nix
+    │   └── hm-pc-ws-01/
+    │       ├── default.nix            # nixosConfigurations.hm-pc-ws-01
+    │       ├── configuration.nix      # hm-pc-ws-01Configuration module
+    │       ├── disko.nix              # hm-pc-ws-01Disko module (disk layout)
+    │       └── hardware-configuration.nix  # stub — regenerate after install
     └── users/
         └── joshua/
-            └── default.nix            # joshua module (imports metaTerminal + home-manager config)
+            ├── default.nix            # joshua module (imports metaTerminal + home-manager config)
+            └── gpg-pubkey.asc         # GPG public key (imported declaratively via programs.gpg)
 ```
 
 ## Module System
@@ -65,11 +72,18 @@ then composed in host and user modules.
 **Host module composition** (`hosts/nixos-demo/default.nix`):
 - `nixos-demoConfiguration` — hostname, stateVersion
 - `nixos-demoHardware` — hardware-configuration.nix
-- `commonConfiguration` — bootloader, locale, networking, nix settings, git
+- `commonConfiguration` — bootloader, locale, networking, nix settings, YubiKey
 - `joshua` — user definition, imports `metaTerminal` + `homeModules.metaHyprland`
 - `metaHyprland` — full Hyprland desktop (system-level)
 - claude-code overlay inline
 - home-manager NixOS module
+
+**Host module composition** (`hosts/hm-pc-ws-01/default.nix`):
+- `inputs.disko.nixosModules.disko` — disko NixOS module
+- `hm-pc-ws-01Disko` — GPT disk layout (EFI + LUKS2 root)
+- `hm-pc-ws-01Configuration` — hostname, LUKS/FIDO2, swapfile, hibernation
+- `hm-pc-ws-01Hardware` — kernel modules (stub, regenerate post-install)
+- `commonConfiguration`, `joshua`, `metaHyprland`, home-manager (same as nixos-demo)
 
 **metaTerminal** (`features/terminal/default.nix`) pulls in:
 - `zsh` module
@@ -97,8 +111,15 @@ A user module that imports both `metaTerminal` (NixOS) and `homeModules.metaHypr
 - **Timezone:** America/Phoenix
 - **Locale:** en_US.UTF-8
 - **Networking:** NetworkManager
-- **System packages:** git
-- **SSH:** enabled, password auth disabled, root login disabled
+- **SSH:** enabled, password auth disabled, root login disabled, agent forwarding enabled
+- **GPG agent:** enabled system-wide (`programs.gnupg.agent`); designed for forwarded
+  agent use — `enableSSHSupport` is off so the forwarded SSH agent socket is not overridden
+- **YubiKey:** `pcscd` + udev rules enabled for smartcard/FIDO2 access
+- **sudo via YubiKey:** `pam_ssh_agent_auth` enabled — sudo authenticates via forwarded
+  SSH agent (YubiKey on primary host signs the PAM challenge); `SSH_AUTH_SOCK` preserved
+  across sudo via `env_keep`
+- **GPG socket forwarding:** `StreamLocalBindUnlink = true` allows the RemoteForward
+  from the primary host to replace the local GPG agent socket on connect
 - **Nix:** flakes + nix-command enabled, weekly GC (Saturday 23:00) and
   optimise (Saturday 23:30), allowUnfree = true
 - **Binary caches:** cache.nixos.org, claude-code.cachix.org
@@ -107,8 +128,51 @@ A user module that imports both `metaTerminal` (NixOS) and `homeModules.metaHypr
 
 - Normal user, groups: `wheel`, `networkmanager`
 - Shell: zsh
-- sudo requires password
+- sudo requires password (or YubiKey via forwarded SSH agent)
 - Packages: `claude-code`
+- GPG public key (`gpg-pubkey.asc`) imported with ultimate trust via `programs.gpg.publicKeys`
+  — enables GPG commit signing via forwarded agent on any host
+
+## hm-pc-ws-01 Disk Layout (disko)
+
+GPT on `/dev/nvme0n1`:
+
+| Partition | Label | Size | Format | Mount |
+|---|---|---|---|---|
+| 1 | `ESP` | 1G | FAT32 | `/boot` |
+| 2 | `cryptroot` | remainder | LUKS2 → ext4 | `/` |
+
+- LUKS2 unlocked via YubiKey FIDO2 (`systemd-cryptenroll`)
+- `allowDiscards = true` for NVMe performance
+- 20GB swapfile at `/swapfile` (NixOS creates automatically)
+- Hibernation: `boot.resumeDevice = "/dev/mapper/cryptroot"`
+
+**Post-install steps for hm-pc-ws-01:**
+```bash
+# 1. Enroll YubiKey into LUKS
+sudo systemd-cryptenroll --fido2-device=auto /dev/nvme0n1p2
+
+# 2. Get swapfile resume offset for hibernation
+sudo filefrag -v /swapfile | awk 'NR==4{gsub(/\./,""); print $4}'
+# Add resume_offset=<value> to boot.kernelParams in configuration.nix, then rebuild
+
+# 3. Regenerate hardware-configuration.nix from actual hardware
+sudo nixos-generate-config --show-hardware-config
+# Replace modules/hosts/hm-pc-ws-01/hardware-configuration.nix with output
+```
+
+## Installing a New Host with Disko
+
+Boot the NixOS live ISO, then:
+
+```bash
+# Partition and format
+nix run github:nix-community/disko -- --mode disko \
+  /path/to/nixosConf/modules/hosts/<hostname>/disko.nix
+
+# Install
+nixos-install --flake /path/to/nixosConf#<hostname>
+```
 
 ## Terminal Environment
 
@@ -295,10 +359,10 @@ date always visible. Hover tooltip shows a calendar.
 ## Applying Changes
 
 ```bash
-sudo nixos-rebuild switch --flake ~/nixosConf#nixos-demo
+sudo nixos-rebuild switch --flake ~/nixosConf#<hostname>
 ```
 
-Or using the shell alias:
+Or using the shell alias (uses current hostname automatically):
 ```bash
 rebuild
 ```
@@ -318,4 +382,13 @@ rebuild
    automatically.
 2. Expose it as `flake.nixosModules.<name>`.
 3. Import it where needed — either in `metaTerminal`, a user module, or
-   directly in the host's module list in `hosts/nixos-demo/default.nix`.
+   directly in the host's module list.
+
+## Adding a New Host
+
+1. Create `modules/hosts/<hostname>/` with `default.nix`, `configuration.nix`,
+   `hardware-configuration.nix`, and `disko.nix` — follow the `hm-pc-ws-01`
+   pattern for disko-based hosts.
+2. `import-tree` picks up all files automatically.
+3. Reference `inputs.disko.nixosModules.disko` and the host's disko module in
+   `default.nix`.
