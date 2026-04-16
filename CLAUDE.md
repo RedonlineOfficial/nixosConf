@@ -377,6 +377,10 @@ rebuild
 ## Gotchas
 
 - **`security.pam.u2f.settings.authfile` must be lowercase** — `authFile` (camelCase) is passed verbatim to `pam_u2f.so` which only recognises `authfile` (all lowercase). With the wrong case it silently falls back to `~/.config/Yubico/u2f_keys` and fails with no visible error.
+- **YubiKey not detected by GPG (`gpg --card-status` fails):** Restart pcscd — `sudo systemctl restart pcscd`. Run from an interactive terminal (not `!`) since it requires sudo auth via the YubiKey itself.
+- **`git push` in Claude Code sessions:** SSH_AUTH_SOCK is not inherited — prefix with `SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket) git push` or ask the user to push from their terminal.
+- **`nwg-displays` does not apply changes at runtime** on this system — edit monitor templates in `monitors.nix` directly instead.
+- **Monitor profiles:** Managed declaratively in `modules/features/desktop/hyprland/monitors.nix`. Edit the `home.file` text entries for `docked.go.tmpl` or `undocked.go.tmpl` to change layout. Use Hyprland transform values 0–7. Rebuild to apply.
 
 ## Claude Workflow Instructions
 
