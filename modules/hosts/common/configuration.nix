@@ -46,7 +46,10 @@
     services.udev.packages = [ pkgs.yubikey-personalization ];
 
     # sudo via forwarded SSH agent (YubiKey on primary workstation signs the challenge)
-    security.pam.sshAgentAuth.enable = true;
+    security.pam.sshAgentAuth = {
+      enable = true;
+      authorizedKeysFiles = [ "/etc/ssh/authorized_keys.d/%u" "%h/.ssh/authorized_keys" ];
+    };
     security.pam.services.sudo.sshAgentAuth = true;
     security.sudo.extraConfig = "Defaults env_keep+=SSH_AUTH_SOCK";
 
