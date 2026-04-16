@@ -13,7 +13,7 @@ read -rp "Continue? [y/N] " confirm
 
 echo "--- Step 1: Partitioning and formatting disk ---"
 sudo nix --extra-experimental-features 'nix-command flakes' \
-  run 'github:nix-community/disko' -- \
+  run 'github:nix-community/disko#disko' -- \
   --flake "github:RedonlineOfficial/nixosConf#$HOSTNAME" \
   --disk main "$DISK" \
   --mode disko
