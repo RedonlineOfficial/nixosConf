@@ -5,7 +5,7 @@
     imports = [
       self.nixosModules.commonDesktop
       self.nixosModules.hyprland
-      self.nixosModules.greetd
+      self.nixosModules.ly
       self.nixosModules.waybar
       self.nixosModules.mako
       self.nixosModules.kitty
