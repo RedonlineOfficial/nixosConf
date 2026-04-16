@@ -201,8 +201,8 @@
             name = bluetui-popup
             match:class = bluetui
             float = yes
-            size = 320 400
-            move = monitor_w-340 40
+            size = 640 400
+            move = monitor_w-660 40
         }
       '';
     };
