@@ -67,7 +67,7 @@
         # and leave the markers.
         # <<<<< TUI AUTO START
         monitor=desc:AU Optronics 0xC693,3840x2400@60.00000,1920x1080,2.00000000,transform,0
-        monitor=desc:Sceptre Tech Inc Sceptre F27,1920x1080@60.00000,3840x0,1.00000000,transform,1
+        monitor=desc:Sceptre Tech Inc Sceptre F27,1920x1080@60.00000,3840x0,1.00000000,transform,3
         monitor=desc:Lenovo Group Limited P24q-10 U4P00001,1920x1080@60.00000,0x0,1.00000000,transform,0
         monitor=desc:Sceptre Tech Inc Sceptre K27 0x00000001,1920x1080@240.00000,1920x0,1.00000000,transform,0
         # <<<<< TUI AUTO END
