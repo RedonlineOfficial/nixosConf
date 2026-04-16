@@ -2,11 +2,9 @@
 set -euo pipefail
 
 HOSTNAME="${1:-hm-pc-ws-01}"
-DISK="${2:-/dev/nvme0n1}"
 
 echo "Installing NixOS"
 echo "  Host:   $HOSTNAME"
-echo "  Disk:   $DISK"
 echo ""
 read -rp "Continue? [y/N] " confirm
 [[ "$confirm" =~ ^[Yy]$ ]] || { echo "Aborted."; exit 1; }
@@ -15,8 +13,7 @@ echo "--- Step 1: Partitioning and formatting disk ---"
 sudo nix --extra-experimental-features 'nix-command flakes' \
   run 'github:nix-community/disko#disko' -- \
   --flake "github:RedonlineOfficial/nixosConf#$HOSTNAME" \
-  --disk main "$DISK" \
-  --mode disko
+  --mode destroy,format,mount
 
 echo "--- Step 2: Mounting target disk as nix store overlay ---"
 mkdir -p /mnt/nix-store-tmp
