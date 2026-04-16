@@ -169,6 +169,7 @@ command that partitions, formats, mounts, and installs NixOS:
 ```bash
 sudo nix run 'github:nix-community/disko#disko-install' -- \
   --flake 'github:RedonlineOfficial/nixosConf#<hostname>' \
+  --disk main /dev/<device> \
   --write-efi-boot-entries
 ```
 
