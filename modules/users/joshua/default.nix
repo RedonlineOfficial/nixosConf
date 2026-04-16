@@ -36,6 +36,16 @@ in {
       home.stateVersion = "25.11";
 
       gtk.gtk4.theme = null;
+
+      programs.gpg = {
+        enable = true;
+        publicKeys = [
+          {
+            source = ./gpg-pubkey.asc;
+            trust = "ultimate";
+          }
+        ];
+      };
     };
   };
 
