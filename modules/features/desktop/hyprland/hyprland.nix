@@ -41,12 +41,12 @@
         "$terminal"    = "kitty";
         "$browser"     = "firefox";
         "$fileExplorer" = "nemo";
-        "$launcher"    = "wofi --show drun";
+        "$launcher"    = "rofi -show drun";
 
         bind = [
           # General
           "$mainMod, Q, killactive"
-          "$mainMod SHIFT, Q, exec, command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit"
+          "$mainMod SHIFT, Q, exec, rofi-power-menu"
           "$mainMod SHIFT, F, togglefloating"
           "$mainMod SHIFT, W, exec, pkill waybar && waybar"
 

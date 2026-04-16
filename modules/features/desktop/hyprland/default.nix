@@ -23,6 +23,7 @@
       self.homeModules.mako
       self.homeModules.kitty
       self.homeModules.nemo
+      self.homeModules.rofi
     ];
 
   };
