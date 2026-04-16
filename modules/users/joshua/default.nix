@@ -48,6 +48,8 @@ in {
         scdaemonSettings = {
           disable-ccid = true;
         };
+        # Register the YubiKey auth subkey for SSH use via gpg-agent
+        sshKeys = [ "5DF8A48A7D0C6D87A9EDD14327E21DD87DC90C1F" ];
       };
     };
   };
