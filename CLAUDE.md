@@ -374,6 +374,10 @@ Or using the shell alias (uses current hostname automatically):
 rebuild
 ```
 
+## Gotchas
+
+- **`security.pam.u2f.settings.authfile` must be lowercase** — `authFile` (camelCase) is passed verbatim to `pam_u2f.so` which only recognises `authfile` (all lowercase). With the wrong case it silently falls back to `~/.config/Yubico/u2f_keys` and fails with no visible error.
+
 ## Claude Workflow Instructions
 
 - For any set of changes, create a new branch first, then `git add` and `git commit` using the **Conventional Commits** standard (`feat:`, `fix:`, `refactor:`, `chore:`, etc.).
