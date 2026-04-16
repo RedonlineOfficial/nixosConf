@@ -47,6 +47,7 @@
     # sudo via forwarded SSH agent (YubiKey on primary workstation signs the challenge)
     security.pam.sshAgentAuth.enable = true;
     security.pam.services.sudo.sshAgentAuth = true;
+    security.sudo.extraConfig = "Defaults env_keep+=SSH_AUTH_SOCK";
 
     nix = {
       settings = {
