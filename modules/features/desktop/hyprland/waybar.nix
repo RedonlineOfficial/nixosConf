@@ -74,7 +74,7 @@
           format           = "|  󰂯  {status}";
           format-connected = "|  󰂱  {device_alias}";
           format-off       = "|  󰂲  Off";
-          on-click         = "blueman-manager";
+          on-click         = "pkill bluetui || kitty --class bluetui -e bluetui";
         };
 
         network = {

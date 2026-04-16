@@ -19,6 +19,7 @@
     home.packages = with pkgs; [
       brightnessctl
       playerctl
+      bluetui
     ];
 
     wayland.windowManager.hyprland = {
@@ -194,6 +195,14 @@
             match:class = hyprland-run
             move = 20 monitor_h-120
             float = yes
+        }
+
+        windowrule {
+            name = bluetui-popup
+            match:class = bluetui
+            float = yes
+            size = 320 400
+            move = monitor_w-340 40
         }
       '';
     };
