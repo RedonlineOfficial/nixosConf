@@ -22,13 +22,8 @@
     swapDevices = [{ device = "/swapfile"; size = 20480; }];
 
     # Hibernation resume from encrypted swapfile.
-    # After first boot, get the resume_offset:
-    #   sudo filefrag -v /swapfile | awk 'NR==4{gsub(/\./,""); print $4}'
-    # Then add to boot.kernelParams: "resume_offset=<value>"
     boot.resumeDevice = "/dev/mapper/cryptroot";
-    boot.kernelParams = [
-      # "resume_offset=<value>"  # set after first boot
-    ];
+    boot.kernelParams = [ "resume_offset=164218880" ];
   };
 
 }
