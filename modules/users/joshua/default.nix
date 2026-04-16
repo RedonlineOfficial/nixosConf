@@ -45,6 +45,9 @@ in {
             trust = "ultimate";
           }
         ];
+        scdaemonSettings = {
+          disable-ccid = true;
+        };
       };
     };
   };
