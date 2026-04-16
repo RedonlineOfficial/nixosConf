@@ -23,10 +23,9 @@
       '';
     };
 
-    # GPG agent handles SSH auth via YubiKey smartcard
+    # GPG — local agent for direct sessions; forwarded agent takes over via RemoteForward when SSH'd in
     programs.gnupg.agent = {
       enable = true;
-      enableSSHSupport = true;
       pinentryPackage = pkgs.pinentry-gnome3;
     };
 
@@ -37,6 +36,8 @@
         PasswordAuthentication = false;
         PermitRootLogin = "no";
         AllowAgentForwarding = true;
+        # Allow RemoteForward to replace the local gpg-agent socket on connect
+        StreamLocalBindUnlink = true;
       };
     };
 
