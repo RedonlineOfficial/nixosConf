@@ -12,6 +12,9 @@
           name = "RedonlineOfficial";
           email = "dev@redonline.me";
         };
+        commit.gpgsign = true;
+        tag.gpgsign = true;
+        user.signingKey = "identity@redonline.me";
         pull.rebase = false;
         push.autoSetupRemote = true;
         diff.colorMoved = "default";

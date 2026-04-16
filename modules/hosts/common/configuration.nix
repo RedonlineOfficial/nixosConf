@@ -16,19 +16,37 @@
     # Common system packages
     environment.systemPackages = with pkgs; [];
 
-    # SSH
-    services.openssh = {
-      enable = true;
-      settings.PasswordAuthentication = false;
-      settings.PermitRootLogin = "no";
-    };
-
+    # SSH client
     programs.ssh = {
-      startAgent = true;
       extraConfig = ''
         AddKeysToAgent yes
       '';
     };
+
+    # GPG agent handles SSH auth via YubiKey smartcard
+    programs.gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+      pinentryPackage = pkgs.pinentry-gnome3;
+    };
+
+    # SSH server
+    services.openssh = {
+      enable = true;
+      settings = {
+        PasswordAuthentication = false;
+        PermitRootLogin = "no";
+        AllowAgentForwarding = true;
+      };
+    };
+
+    # YubiKey smartcard + udev access
+    services.pcscd.enable = true;
+    services.udev.packages = [ pkgs.yubikey-personalization ];
+
+    # sudo via forwarded SSH agent (YubiKey on primary workstation signs the challenge)
+    security.pam.sshAgentAuth.enable = true;
+    security.pam.services.sudo.sshAgentAuth = true;
 
     nix = {
       settings = {
