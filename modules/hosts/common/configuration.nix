@@ -61,6 +61,7 @@
       settings = {
         cue = true;
         authFile = "/etc/u2f_keys";
+        debug = true;
       };
     };
     security.pam.services.login.u2fAuth = true;
