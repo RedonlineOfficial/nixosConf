@@ -53,6 +53,19 @@
     security.pam.services.sudo.sshAgentAuth = true;
     security.sudo.extraConfig = "Defaults env_keep+=SSH_AUTH_SOCK";
 
+    # YubiKey U2F/FIDO2 for local login and sudo (sufficient — password still works as fallback)
+    # After rebuild, register your YubiKey: pamu2fcfg | sudo tee /etc/u2f_keys
+    # For a second/backup key: pamu2fcfg -n | sudo tee -a /etc/u2f_keys
+    security.pam.u2f = {
+      enable = true;
+      settings = {
+        cue = true;
+        authFile = "/etc/u2f_keys";
+      };
+    };
+    security.pam.services.login.u2fAuth = true;
+    security.pam.services.sudo.u2fAuth = true;
+
     nix = {
       settings = {
         experimental-features = [ "nix-command" "flakes" ];
