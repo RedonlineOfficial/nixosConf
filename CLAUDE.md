@@ -163,15 +163,20 @@ sudo nixos-generate-config --show-hardware-config
 
 ## Installing a New Host with Disko
 
-Boot the NixOS live ISO, then:
+Boot the NixOS live ISO and connect to the internet, then run a single
+command that partitions, formats, mounts, and installs NixOS:
 
 ```bash
-# Partition and format
-nix run github:nix-community/disko -- --mode disko \
-  /path/to/nixosConf/modules/hosts/<hostname>/disko.nix
+sudo nix run 'github:nix-community/disko#disko-install' -- \
+  --flake 'github:RedonlineOfficial/nixosConf#<hostname>' \
+  --write-efi-boot-entries
+```
 
-# Install
-nixos-install --flake /path/to/nixosConf#<hostname>
+> **Note:** `diskoScript` is deprecated — always use `disko-install`.
+
+After first boot, enroll the YubiKey into LUKS (hm-pc-ws-01 only):
+```bash
+sudo systemd-cryptenroll --fido2-device=auto /dev/nvme0n1p2
 ```
 
 ## Terminal Environment
