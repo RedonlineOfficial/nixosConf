@@ -14,7 +14,7 @@
         };
         commit.gpgsign = true;
         tag.gpgsign = true;
-        user.signingKey = "identity@redonline.me";
+        user.signingKey = "AC56BC54D4551885";
         pull.rebase = false;
         push.autoSetupRemote = true;
         diff.colorMoved = "default";
