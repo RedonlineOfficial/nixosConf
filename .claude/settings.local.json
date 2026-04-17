@@ -7,7 +7,11 @@
       "WebFetch(domain:docs.noctalia.dev)",
       "WebFetch(domain:raw.githubusercontent.com)",
       "WebFetch(domain:flake.parts)",
-      "WebFetch(domain:nix-community.github.io)"
+      "WebFetch(domain:nix-community.github.io)",
+      "Bash(nix eval:*)",
+      "Bash(nix flake:*)",
+      "WebSearch",
+      "Bash(find modules:*)"
     ]
   }
 }
