@@ -101,7 +101,7 @@
         gu = "git reset --soft HEAD~1";
 
         # Kitty
-        ks = "kitten ssh"
+        ks = "kitten ssh";
 
         # --- Neovim ---
         v = "nvim";
