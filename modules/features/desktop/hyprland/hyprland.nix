@@ -170,6 +170,14 @@
           disable_hyprland_logo = true;
         };
 
+        workspace = [
+          "1, monitor:desc:Sceptre Tech Inc Sceptre K27 0x00000001, default:true"
+          "2, monitor:desc:Sceptre Tech Inc Sceptre K27 0x00000001"
+          "3, monitor:desc:Sceptre Tech Inc Sceptre F27"
+          "4, monitor:desc:Lenovo Group Limited P24q-10 U4P00001"
+          "5, monitor:desc:AU Optronics 0xC693"
+        ];
+
       };
 
       extraConfig = ''
