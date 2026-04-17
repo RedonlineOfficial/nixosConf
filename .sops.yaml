@@ -1,0 +1,18 @@
+keys:
+  - &admin age1glaepgq6ljqg8ckaq9hvra3pdg8crx6tqz5pl6yxm6lqqp6mmvaqm6249n
+  - &hm_pc_ws_01 age1rjcles63032xjcrqf76t9a8e4dlhrx3gpzklclx8ddsq6n44rqzsr2xycr
+  # Add new homelab VMs here as they are provisioned:
+  # - &gitea age1...
+
+creation_rules:
+  - path_regex: secrets/common\.yaml$
+    key_groups:
+      - age:
+          - *admin
+          - *hm_pc_ws_01
+
+  - path_regex: secrets/hosts/hm-pc-ws-01\.yaml$
+    key_groups:
+      - age:
+          - *admin
+          - *hm_pc_ws_01
