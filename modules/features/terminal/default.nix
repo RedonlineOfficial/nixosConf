@@ -7,7 +7,6 @@
     imports = [
       self.nixosModules.zsh
       self.nixosModules.neovim
-      self.nixosModules.git
     ];
 
     environment.systemPackages = with pkgs; [

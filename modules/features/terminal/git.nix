@@ -3,7 +3,7 @@
   inputs,
   ...
 }: {
-  flake.nixosModules.git = {pkgs, ...}: {
+  flake.homeModules.git = {pkgs, ...}: {
     programs.git = {
       enable = true;
 
