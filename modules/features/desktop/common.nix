@@ -20,6 +20,7 @@
       bitwarden-desktop
       yubioath-flutter
       spotify
+      freetube
     ];
 
   };
