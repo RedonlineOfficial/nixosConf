@@ -5,7 +5,6 @@
 }: {
   flake.nixosModules.metaTerminal = {pkgs, ...}: {
     imports = [
-      self.nixosModules.zsh
       self.nixosModules.neovim
     ];
 
@@ -15,7 +14,6 @@
 
     programs.zoxide = {
       enable = true;
-      enableZshIntegration = true;
     };
   };
 }

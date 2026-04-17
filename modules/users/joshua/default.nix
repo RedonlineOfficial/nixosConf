@@ -35,6 +35,7 @@ in {
       imports = [
         self.homeModules.metaHyprland
         self.homeModules.git
+        self.homeModules.zsh
       ];
 
       home.username = userName;

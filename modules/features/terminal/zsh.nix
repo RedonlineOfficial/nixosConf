@@ -3,7 +3,7 @@
   inputs,
   ...
 }: {
-  flake.nixosModules.zsh = {
+  flake.homeModules.zsh = {
     pkgs,
     config,
     ...
@@ -44,7 +44,9 @@
     in "\\e[38;2;${toString r};${toString g};${toString b}m";
   in {
     programs.zsh = {
-      histSize = 10000;
+      enable = true;
+
+      history.size = 10000;
 
       setOptions = [
         "AUTO_CD"
@@ -113,9 +115,7 @@
         ":q" = "exit";
       };
 
-      promptInit = "";
-
-      interactiveShellInit = ''
+      initExtra = ''
         # --- functions ---
         function extract() {
           if [ $# -eq 0 ]; then
@@ -207,11 +207,11 @@
           local remotePath=$2
           local port="22"
           if [[ $userHost =~ :([0-9]+)$ ]]; then
-            port="''${match[1]}"
-            userHost=''${userHost%%:*}
+            port="${match[1]}"
+            userHost=${userHost%%:*}
           fi
 
-          local cmd="oil-ssh://''${userHost}:''${port}/''${remotePath}"
+          local cmd="oil-ssh://${userHost}:${port}/${remotePath}"
           nvim "$cmd"
         }
 
@@ -244,10 +244,15 @@
             promptColor=$'${toAnsi c.base08}'
           fi
 
-          print -P "%F{#${c.base0E}}%~%f ''${vcs_info_msg_0_}"
+          print -P "%F{#${c.base0E}}%~%f ${vcs_info_msg_0_}"
           PROMPT="%F{#${c.base0C}}%n@%m%f %{$promptColor%}> %f"
         }
       '';
+    };
+
+    programs.zoxide = {
+      enable = true;
+      enableZshIntegration = true;
     };
   };
 }
