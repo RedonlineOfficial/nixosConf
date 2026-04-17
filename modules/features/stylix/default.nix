@@ -3,7 +3,11 @@
   inputs,
   ...
 }: {
-  flake.nixosModules.stylix = {pkgs, ...}: {
+  flake.nixosModules.stylix = {
+    pkgs,
+    config,
+    ...
+  }: {
     imports = [inputs.stylix.nixosModules.stylix];
 
     stylix = {
@@ -11,9 +15,18 @@
       base16Scheme = "${pkgs.base16-schemes}/share/themes/dracula.yaml";
 
       fonts = {
+        serif = config.stylix.fonts.sansSerif;
+        sansSerif = {
+          package = pkgs.nerd-fonts.fira-code;
+          name = "FiraCode Nerd Font";
+        };
         monospace = {
-          package = pkgs.nerd-fonts.hack;
-          name = "Hack Nerd Font Mono";
+          package = pkgs.nerd-fonts.fira-mono;
+          name = "FiraMono Nerd Font";
+        };
+        emoji = {
+          package = pkgs.noto-fonts-color-emoji;
+          name = "Noto Color Emoji";
         };
         sizes.terminal = 11;
       };
