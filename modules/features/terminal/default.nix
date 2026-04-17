@@ -3,13 +3,15 @@
   inputs,
   ...
 }: {
-  flake.nixosModules.metaTerminal = {pkgs, ...}: {
-    environment.systemPackages = with pkgs; [
-      lsd
+  flake.homeModules.metaTerminal = {pkgs, ...}: {
+    imports = [
+      self.homeModules.git
+      self.homeModules.zsh
+      self.homeModules.neovim
     ];
 
-    programs.zoxide = {
-      enable = true;
-    };
+    home.packages = with pkgs; [
+      lsd
+    ];
   };
 }

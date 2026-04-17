@@ -34,9 +34,7 @@ in {
     home-manager.users.${userName} = {
       imports = [
         self.homeModules.metaHyprland
-        self.homeModules.git
-        self.homeModules.zsh
-        self.homeModules.neovim
+        self.homeModules.metaTerminal
       ];
 
       home.username = userName;
