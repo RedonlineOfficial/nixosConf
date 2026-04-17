@@ -6,10 +6,6 @@
   userName = "joshua";
 in {
   flake.nixosModules.${userName} = {pkgs, ...}: {
-    imports = [
-      self.nixosModules.metaTerminal
-    ];
-
     programs.zsh.enable = true;
 
     users.users.${userName} = {
