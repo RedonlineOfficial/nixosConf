@@ -20,6 +20,7 @@
       brightnessctl
       playerctl
       bluetui
+      wl-clipboard
     ];
 
     wayland.windowManager.hyprland = {
