@@ -15,6 +15,12 @@
 
           lsp.enable = true;
 
+          formatter.conform-nvim.enable = true;
+          formatter.conform-nvim.setupOpts.format_on_save = {
+            timeout_ms = 500;
+            lsp_fallback = true;
+          };
+
           languages = {
             bash = {
               enable = true;
@@ -32,7 +38,7 @@
               lsp.servers = [ "nixd" ];
               treesitter.enable = true;
               format.enable = true;
-              format.type = [ "nixfmt" ];
+              format.type = [ "alejandra" ];
             };
             html = {
               enable = true;
@@ -274,6 +280,10 @@
               vim.fn.mkdir(undodir, "p")
             end
             vim.opt.undodir = undodir
+
+            vim.api.nvim_create_user_command("Format", function()                                                
+            require("conform").format({ async = true })                                                        
+            end, {})
           '';
         };
       };
