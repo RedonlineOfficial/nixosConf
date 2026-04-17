@@ -11,7 +11,8 @@
       "Bash(nix eval:*)",
       "Bash(nix flake:*)",
       "WebSearch",
-      "Bash(find modules:*)"
+      "Bash(find modules:*)",
+      "Bash(grep:*)"
     ]
   }
 }
