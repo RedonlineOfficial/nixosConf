@@ -100,6 +100,9 @@
         gpl = "git pull";
         gu = "git reset --soft HEAD~1";
 
+        # Kitty
+        ks = "kitten ssh"
+
         # --- Neovim ---
         v = "nvim";
         sv = "sudo nvim";
