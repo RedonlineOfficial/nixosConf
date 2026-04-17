@@ -7,7 +7,7 @@
     programs.git = {
       enable = true;
 
-      config = {
+      settings = {
         init.defaultBranch = "main";
         core.editor = "nvim -f";
         user = {
