@@ -1,10 +1,19 @@
-{ self, inputs, ... }: {
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.nixosModules.nixos-demoHardware = {
+    config,
+    lib,
+    pkgs,
+    modulesPath,
+    ...
+  }: {
+    imports = [(modulesPath + "/profiles/qemu-guest.nix")];
 
-  flake.nixosModules.nixos-demoHardware = { config, lib, pkgs, modulesPath, ... }: {
-    imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
-
-    boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "virtio_scsi" "sd_mod" "sr_mod" ];
-    boot.kernelModules = [ "kvm-intel" ];
+    boot.initrd.availableKernelModules = ["ata_piix" "uhci_hcd" "virtio_pci" "virtio_scsi" "sd_mod" "sr_mod"];
+    boot.kernelModules = ["kvm-intel"];
 
     fileSystems = {
       "/" = {
@@ -15,15 +24,14 @@
       "/boot" = {
         device = "/dev/disk/by-uuid/85C4-9098";
         fsType = "vfat";
-        options = [ "fmask=0077" "dmask=0077" ];
+        options = ["fmask=0077" "dmask=0077"];
       };
     };
 
     swapDevices = [
-      { device = "/dev/disk/by-uuid/9d355dfb-a10f-493f-a3c5-8be96b26e59d"; }
+      {device = "/dev/disk/by-uuid/9d355dfb-a10f-493f-a3c5-8be96b26e59d";}
     ];
 
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   };
-
 }

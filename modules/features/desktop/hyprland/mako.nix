@@ -1,13 +1,13 @@
-{ self, inputs, ... }: {
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.nixosModules.mako = {...}: {};
 
-  flake.nixosModules.mako = { ... }: { };
-
-  flake.homeModules.mako = { ... }: {
-
+  flake.homeModules.mako = {...}: {
     services.mako = {
       enable = true;
     };
-
   };
-
 }

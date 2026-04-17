@@ -1,12 +1,15 @@
 # Common settings shared across all hosts
-{ self, inputs, ... }: {
-
-  flake.nixosModules.commonConfiguration = { pkgs, ... }: {
-    imports = [ self.nixosModules.stylix self.nixosModules.secrets ];
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.nixosModules.commonConfiguration = {pkgs, ...}: {
+    imports = [self.nixosModules.stylix self.nixosModules.secrets];
     # Bootloader
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
-# Time & locale
+    # Time & locale
     time.timeZone = "America/Phoenix";
     i18n.defaultLocale = "en_US.UTF-8";
 
@@ -45,12 +48,12 @@
 
     # YubiKey smartcard + udev access
     services.pcscd.enable = true;
-    services.udev.packages = [ pkgs.yubikey-personalization ];
+    services.udev.packages = [pkgs.yubikey-personalization];
 
     # sudo via forwarded SSH agent (YubiKey on primary workstation signs the challenge)
     security.pam.sshAgentAuth = {
       enable = true;
-      authorizedKeysFiles = [ "/etc/ssh/authorized_keys.d/%u" "%h/.ssh/authorized_keys" ];
+      authorizedKeysFiles = ["/etc/ssh/authorized_keys.d/%u" "%h/.ssh/authorized_keys"];
     };
     security.pam.services.sudo.sshAgentAuth = true;
     security.sudo.extraConfig = "Defaults env_keep+=SSH_AUTH_SOCK";
@@ -70,7 +73,7 @@
 
     nix = {
       settings = {
-        experimental-features = [ "nix-command" "flakes" ];
+        experimental-features = ["nix-command" "flakes"];
 
         substituters = [
           "https://cache.nixos.org"
@@ -82,7 +85,7 @@
           "claude-code.cachix.org-1:YeXf2aNu7UTX8Vwrze0za1WEDS+4DuI2kVeWEE4fsRk="
         ];
 
-        trusted-users = [ "root" "@wheel" ];
+        trusted-users = ["root" "@wheel"];
       };
 
       gc = {
@@ -100,5 +103,4 @@
 
     nixpkgs.config.allowUnfree = true;
   };
-
 }

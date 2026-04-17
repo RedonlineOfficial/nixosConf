@@ -1,7 +1,9 @@
-{ self, inputs, ... }: {
-  
-  flake.nixosModules.metaTerminal = { pkgs, ... }: {
-
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.nixosModules.metaTerminal = {pkgs, ...}: {
     imports = [
       self.nixosModules.zsh
       self.nixosModules.neovim
@@ -17,5 +19,4 @@
       enableZshIntegration = true;
     };
   };
-
 }

@@ -1,7 +1,9 @@
-{ self, inputs, ... }: {
-
-  flake.nixosModules.metaHyprland = { ... }: {
-
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.nixosModules.metaHyprland = {...}: {
     imports = [
       self.nixosModules.commonDesktop
       self.nixosModules.hyprland
@@ -11,11 +13,9 @@
       self.nixosModules.kitty
       self.nixosModules.nemo
     ];
-
   };
 
-  flake.homeModules.metaHyprland = { ... }: {
-
+  flake.homeModules.metaHyprland = {...}: {
     imports = [
       self.homeModules.commonDesktop
       self.homeModules.hyprland
@@ -26,7 +26,5 @@
       self.homeModules.rofi
       self.homeModules.monitors
     ];
-
   };
-
 }

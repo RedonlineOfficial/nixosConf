@@ -1,9 +1,11 @@
-{ self, inputs, ... }: {
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.nixosModules.kitty = {...}: {};
 
-  flake.nixosModules.kitty = { ... }: { };
-
-  flake.homeModules.kitty = { ... }: {
-
+  flake.homeModules.kitty = {...}: {
     programs.kitty = {
       enable = true;
 
@@ -30,7 +32,7 @@
 
         # Window splits (vim-like)
         "ctrl+shift+backslash" = "launch --location=vsplit --cwd=current";
-        "ctrl+shift+minus"     = "launch --location=hsplit --cwd=current";
+        "ctrl+shift+minus" = "launch --location=hsplit --cwd=current";
 
         # Window focus (vim-like hjkl — remaps kitty defaults)
         "ctrl+shift+h" = "neighboring_window left";
@@ -111,7 +113,5 @@
 
           return end_x
     '';
-
   };
-
 }

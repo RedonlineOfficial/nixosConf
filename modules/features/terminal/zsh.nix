@@ -1,24 +1,48 @@
-{ self, inputs, ... }: {
-
-  flake.nixosModules.zsh = { pkgs, config, ... }: let
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.nixosModules.zsh = {
+    pkgs,
+    config,
+    ...
+  }: let
     c = config.lib.stylix.colors;
 
     # Convert a 6-char lowercase hex string (e.g. "50fa7b") to a true-color
     # ANSI foreground escape sequence for use in shell variables.
-    hexDigit = d: {
-      "0"=0; "1"=1; "2"=2; "3"=3; "4"=4; "5"=5; "6"=6; "7"=7;
-      "8"=8; "9"=9; "a"=10; "b"=11; "c"=12; "d"=13; "e"=14; "f"=15;
-    }.${d};
-    hexByte  = s: hexDigit (builtins.substring 0 1 s) * 16
-                + hexDigit (builtins.substring 1 1 s);
-    toAnsi   = hex:
-      let
-        r = hexByte (builtins.substring 0 2 hex);
-        g = hexByte (builtins.substring 2 2 hex);
-        b = hexByte (builtins.substring 4 2 hex);
-      in "\\e[38;2;${toString r};${toString g};${toString b}m";
+    hexDigit = d:
+      {
+        "0" = 0;
+        "1" = 1;
+        "2" = 2;
+        "3" = 3;
+        "4" = 4;
+        "5" = 5;
+        "6" = 6;
+        "7" = 7;
+        "8" = 8;
+        "9" = 9;
+        "a" = 10;
+        "b" = 11;
+        "c" = 12;
+        "d" = 13;
+        "e" = 14;
+        "f" = 15;
+      }.${
+        d
+      };
+    hexByte = s:
+      hexDigit (builtins.substring 0 1 s)
+      * 16
+      + hexDigit (builtins.substring 1 1 s);
+    toAnsi = hex: let
+      r = hexByte (builtins.substring 0 2 hex);
+      g = hexByte (builtins.substring 2 2 hex);
+      b = hexByte (builtins.substring 4 2 hex);
+    in "\\e[38;2;${toString r};${toString g};${toString b}m";
   in {
-
     programs.zsh = {
       histSize = 10000;
 
@@ -36,7 +60,7 @@
 
         # --- Power ---
         shutdown = "sudo shutdown now";
-        reboot   = "sudo reboot";
+        reboot = "sudo reboot";
 
         # --- Navigation ---
         z = "cd";
@@ -47,17 +71,17 @@
         "5." = "cd ../../../../..";
 
         # --- File and Directory Handling ---
-        mkd   = "mkdir -pv";
-        cp    = "cp -ir";
-        mv    = "mv -i";
-        rm    = "rm -ir";
-        grep  = "grep --color=auto";
+        mkd = "mkdir -pv";
+        cp = "cp -ir";
+        mv = "mv -i";
+        rm = "rm -ir";
+        grep = "grep --color=auto";
         fgrep = "fgrep --color=auto";
         egrep = "egrep --color=auto";
-        fd    = "find . -type d -name";
-        ff    = "find . -type f -name";
+        fd = "find . -type d -name";
+        ff = "find . -type f -name";
 
-      	# --- Git ---
+        # --- Git ---
         gi = "git init";
         gic = "git init && git commit --allow-empty -m 'chore: init'";
         gs = "git status";
@@ -87,7 +111,6 @@
         # --- Miscellaneous ---
         c = "clear";
         ":q" = "exit";
-
       };
 
       promptInit = "";
@@ -226,7 +249,5 @@
         }
       '';
     };
-
   };
-
 }

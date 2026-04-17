@@ -1,5 +1,8 @@
-{ self, inputs, ... }: {
-
+{
+  self,
+  inputs,
+  ...
+}: {
   flake.nixosConfigurations.hm-pc-ws-01 = inputs.nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
 
@@ -22,7 +25,7 @@
       self.nixosModules.metaHyprland
 
       # Apply claude-code overlay
-      { nixpkgs.overlays = [ inputs.claude-code.overlays.default ]; }
+      {nixpkgs.overlays = [inputs.claude-code.overlays.default];}
 
       # Home manager
       inputs.home-manager.nixosModules.home-manager
@@ -32,5 +35,4 @@
       }
     ];
   };
-
 }

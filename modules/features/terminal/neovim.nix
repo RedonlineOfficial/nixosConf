@@ -1,7 +1,10 @@
-{ self, inputs, ... }: {
-
-  flake.nixosModules.neovim = { ... }: {
-    imports = [ inputs.nvf.nixosModules.default ];
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.nixosModules.neovim = {...}: {
+    imports = [inputs.nvf.nixosModules.default];
 
     programs.nvf = {
       enable = true;
@@ -35,10 +38,10 @@
             nix = {
               enable = true;
               lsp.enable = true;
-              lsp.servers = [ "nixd" ];
+              lsp.servers = ["nixd"];
               treesitter.enable = true;
               format.enable = true;
-              format.type = [ "alejandra" ];
+              format.type = ["alejandra"];
             };
             html = {
               enable = true;
@@ -57,16 +60,16 @@
             setupOpts = {
               completion.documentation.auto_show = true;
               keymap = {
-                "<C-p>"     = [ "select_prev" "fallback_to_mappings" ];
-                "<C-n>"     = [ "select_next" "fallback_to_mappings" ];
-                "<C-y>"     = [ "select_and_accept" "fallback" ];
-                "<C-e>"     = [ "cancel" "fallback" ];
-                "<C-space>" = [ "show" "show_documentation" "hide_documentation" ];
-                "<Tab>"     = [ "snippet_forward" "fallback" ];
-                "<S-Tab>"   = [ "snippet_backward" "fallback" ];
-                "<C-b>"     = [ "scroll_documentation_up" "fallback" ];
-                "<C-f>"     = [ "scroll_documentation_down" "fallback" ];
-                "<C-k>"     = [ "show_signature" "hide_signature" "fallback" ];
+                "<C-p>" = ["select_prev" "fallback_to_mappings"];
+                "<C-n>" = ["select_next" "fallback_to_mappings"];
+                "<C-y>" = ["select_and_accept" "fallback"];
+                "<C-e>" = ["cancel" "fallback"];
+                "<C-space>" = ["show" "show_documentation" "hide_documentation"];
+                "<Tab>" = ["snippet_forward" "fallback"];
+                "<S-Tab>" = ["snippet_backward" "fallback"];
+                "<C-b>" = ["scroll_documentation_up" "fallback"];
+                "<C-f>" = ["scroll_documentation_down" "fallback"];
+                "<C-k>" = ["show_signature" "hide_signature" "fallback"];
               };
               fuzzy.implementation = "lua";
             };
@@ -111,8 +114,8 @@
                 natural_order = "fast";
                 case_insensitive = false;
                 sort = [
-                  [ "type" "asc" ]
-                  [ "name" "asc" ]
+                  ["type" "asc"]
+                  ["name" "asc"]
                 ];
               };
               # Disable <C-l> in oil to preserve split navigation
@@ -124,66 +127,66 @@
 
           options = {
             # General
-            selection     = "inclusive";
-            mouse         = "a";
-            clipboard     = "unnamedplus";
-            modifiable    = true;
-            encoding      = "utf-8";
-            wrap          = false;
-            autoread      = true;
-            autowrite     = false;
-            hidden        = true;
-            errorbells    = false;
-            backspace     = "indent,eol,start";
-            autochdir     = false;
+            selection = "inclusive";
+            mouse = "a";
+            clipboard = "unnamedplus";
+            modifiable = true;
+            encoding = "utf-8";
+            wrap = false;
+            autoread = true;
+            autowrite = false;
+            hidden = true;
+            errorbells = false;
+            backspace = "indent,eol,start";
+            autochdir = false;
 
             # Appearance
-            number         = true;
+            number = true;
             relativenumber = true;
-            cursorline     = true;
-            signcolumn     = "yes";
-            colorcolumn    = "100";
-            showmatch      = true;
-            showmode       = false;
-            conceallevel   = 0;
-            concealcursor  = "";
-            synmaxcol      = 300;
-            fillchars      = "eob: ";
-            termguicolors  = true;
+            cursorline = true;
+            signcolumn = "yes";
+            colorcolumn = "100";
+            showmatch = true;
+            showmode = false;
+            conceallevel = 0;
+            concealcursor = "";
+            synmaxcol = 300;
+            fillchars = "eob: ";
+            termguicolors = true;
 
             # Tabbing
-            tabstop     = 2;
-            shiftwidth  = 2;
+            tabstop = 2;
+            shiftwidth = 2;
             softtabstop = 2;
-            expandtab   = true;
+            expandtab = true;
 
             # Indentation
             smartindent = true;
-            autoindent  = true;
+            autoindent = true;
 
             # Search
             ignorecase = true;
-            smartcase  = true;
-            hlsearch   = true;
-            incsearch  = true;
+            smartcase = true;
+            hlsearch = true;
+            incsearch = true;
 
             # Scroll
-            scrolloff     = 10;
+            scrolloff = 10;
             sidescrolloff = 10;
 
             # Windows
-            wildmenu   = true;
-            wildmode   = "longest:full,full";
-            pumheight  = 10;
-            pumblend   = 10;
-            winblend   = 0;
-            cmdheight  = 1;
+            wildmenu = true;
+            wildmode = "longest:full,full";
+            pumheight = 10;
+            pumblend = 10;
+            winblend = 0;
+            cmdheight = 1;
 
             # Backup and undo
-            backup      = false;
+            backup = false;
             writebackup = false;
-            swapfile    = false;
-            undofile    = true;
+            swapfile = false;
+            undofile = true;
 
             # Splits
             splitbelow = true;
@@ -191,57 +194,144 @@
 
             # Completions
             completeopt = "menuone,noinsert,noselect";
-            inccommand  = "split";
+            inccommand = "split";
 
             # Performance
-            redrawtime    = 10000;
+            redrawtime = 10000;
             maxmempattern = 20000;
-            updatetime    = 300;
-            timeoutlen    = 500;
-            ttimeoutlen   = 0;
+            updatetime = 300;
+            timeoutlen = 500;
+            ttimeoutlen = 0;
           };
 
           maps.normal = {
             # General
-            "<Space>"     = { action = "<Nop>"; };
-            "<ESC>"       = { action = "<cmd>nohlsearch<CR>"; desc = "Clear search highlights"; };
+            "<Space>" = {action = "<Nop>";};
+            "<ESC>" = {
+              action = "<cmd>nohlsearch<CR>";
+              desc = "Clear search highlights";
+            };
 
             # Move between splits
-            "<C-h>"       = { action = "<C-w>h"; desc = "Move to left split"; };
-            "<C-j>"       = { action = "<C-w>j"; desc = "Move to split below"; };
-            "<C-k>"       = { action = "<C-w>k"; desc = "Move to split above"; };
-            "<C-l>"       = { action = "<C-w>l"; desc = "Move to right split"; };
+            "<C-h>" = {
+              action = "<C-w>h";
+              desc = "Move to left split";
+            };
+            "<C-j>" = {
+              action = "<C-w>j";
+              desc = "Move to split below";
+            };
+            "<C-k>" = {
+              action = "<C-w>k";
+              desc = "Move to split above";
+            };
+            "<C-l>" = {
+              action = "<C-w>l";
+              desc = "Move to right split";
+            };
 
             # Resize splits
-            "<C-Up>"      = { action = ":resize -2<CR>"; silent = true; desc = "Shrink split height"; };
-            "<C-Down>"    = { action = ":resize +2<CR>"; silent = true; desc = "Grow split height"; };
-            "<C-Left>"    = { action = ":vertical resize -2<CR>"; silent = true; desc = "Shrink split width"; };
-            "<C-Right>"   = { action = ":vertical resize +2<CR>"; silent = true; desc = "Grow split width"; };
+            "<C-Up>" = {
+              action = ":resize -2<CR>";
+              silent = true;
+              desc = "Shrink split height";
+            };
+            "<C-Down>" = {
+              action = ":resize +2<CR>";
+              silent = true;
+              desc = "Grow split height";
+            };
+            "<C-Left>" = {
+              action = ":vertical resize -2<CR>";
+              silent = true;
+              desc = "Shrink split width";
+            };
+            "<C-Right>" = {
+              action = ":vertical resize +2<CR>";
+              silent = true;
+              desc = "Grow split width";
+            };
 
             # Save/Exit
-            "<leader>w"   = { action = "<cmd>w<CR>"; desc = "Save"; };
-            "<leader>x"   = { action = "<cmd>x<CR>"; desc = "Save and quit"; };
-            "<leader>q"   = { action = "<cmd>q<CR>"; desc = "Quit"; };
-            "<leader>Q"   = { action = "<cmd>q!<CR>"; desc = "Force quit"; };
+            "<leader>w" = {
+              action = "<cmd>w<CR>";
+              desc = "Save";
+            };
+            "<leader>x" = {
+              action = "<cmd>x<CR>";
+              desc = "Save and quit";
+            };
+            "<leader>q" = {
+              action = "<cmd>q<CR>";
+              desc = "Quit";
+            };
+            "<leader>Q" = {
+              action = "<cmd>q!<CR>";
+              desc = "Force quit";
+            };
 
             # Oil
-            "<leader>fe"  = { action = ":lua ToggleOil()<CR>"; silent = true; desc = "Toggle Oil"; };
+            "<leader>fe" = {
+              action = ":lua ToggleOil()<CR>";
+              silent = true;
+              desc = "Toggle Oil";
+            };
 
             # Telescope
-            "<leader>sp"  = { action = ":lua require('telescope.builtin').builtin()<CR>"; silent = true; desc = "[S]earch Builtin [P]ickers"; };
-            "<leader>sb"  = { action = ":lua require('telescope.builtin').buffers()<CR>"; silent = true; desc = "[S]earch [B]uffers"; };
-            "<leader>sf"  = { action = ":lua require('telescope.builtin').find_files()<CR>"; silent = true; desc = "[S]earch [F]iles"; };
-            "<leader>sw"  = { action = ":lua require('telescope.builtin').grep_string()<CR>"; silent = true; desc = "[S]earch Current [W]ord"; };
-            "<leader>sg"  = { action = ":lua require('telescope.builtin').live_grep()<CR>"; silent = true; desc = "[S]earch by [G]rep"; };
-            "<leader>sr"  = { action = ":lua require('telescope.builtin').resume()<CR>"; silent = true; desc = "[S]earch [R]esume"; };
-            "<leader>sh"  = { action = ":lua require('telescope.builtin').help_tags()<CR>"; silent = true; desc = "[S]earch [H]elp"; };
-            "<leader>sm"  = { action = ":lua require('telescope.builtin').man_pages()<CR>"; silent = true; desc = "[S]earch [M]anuals"; };
+            "<leader>sp" = {
+              action = ":lua require('telescope.builtin').builtin()<CR>";
+              silent = true;
+              desc = "[S]earch Builtin [P]ickers";
+            };
+            "<leader>sb" = {
+              action = ":lua require('telescope.builtin').buffers()<CR>";
+              silent = true;
+              desc = "[S]earch [B]uffers";
+            };
+            "<leader>sf" = {
+              action = ":lua require('telescope.builtin').find_files()<CR>";
+              silent = true;
+              desc = "[S]earch [F]iles";
+            };
+            "<leader>sw" = {
+              action = ":lua require('telescope.builtin').grep_string()<CR>";
+              silent = true;
+              desc = "[S]earch Current [W]ord";
+            };
+            "<leader>sg" = {
+              action = ":lua require('telescope.builtin').live_grep()<CR>";
+              silent = true;
+              desc = "[S]earch by [G]rep";
+            };
+            "<leader>sr" = {
+              action = ":lua require('telescope.builtin').resume()<CR>";
+              silent = true;
+              desc = "[S]earch [R]esume";
+            };
+            "<leader>sh" = {
+              action = ":lua require('telescope.builtin').help_tags()<CR>";
+              silent = true;
+              desc = "[S]earch [H]elp";
+            };
+            "<leader>sm" = {
+              action = ":lua require('telescope.builtin').man_pages()<CR>";
+              silent = true;
+              desc = "[S]earch [M]anuals";
+            };
           };
 
           maps.visual = {
             # Move selected text up/down
-            "J" = { action = ":m '>+1<CR>gv=gv"; silent = true; desc = "Move selection down"; };
-            "K" = { action = ":m '<-2<CR>gv=gv"; silent = true; desc = "Move selection up"; };
+            "J" = {
+              action = ":m '>+1<CR>gv=gv";
+              silent = true;
+              desc = "Move selection down";
+            };
+            "K" = {
+              action = ":m '<-2<CR>gv=gv";
+              silent = true;
+              desc = "Move selection up";
+            };
           };
 
           luaConfigRC.whichkey = ''
@@ -281,13 +371,12 @@
             end
             vim.opt.undodir = undodir
 
-            vim.api.nvim_create_user_command("Format", function()                                                
-            require("conform").format({ async = true })                                                        
+            vim.api.nvim_create_user_command("Format", function()
+            require("conform").format({ async = true })
             end, {})
           '';
         };
       };
     };
   };
-
 }

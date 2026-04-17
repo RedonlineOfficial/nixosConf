@@ -1,6 +1,5 @@
-{ self, ... }: {
-
-  flake.nixosModules.hm-pc-ws-01Configuration = { ... }: {
+{self, ...}: {
+  flake.nixosModules.hm-pc-ws-01Configuration = {...}: {
     networking.hostName = "hm-pc-ws-01";
     system.stateVersion = "25.11";
 
@@ -19,11 +18,15 @@
     };
 
     # Swapfile for hibernation — NixOS creates it automatically on first boot
-    swapDevices = [{ device = "/swapfile"; size = 20480; }];
+    swapDevices = [
+      {
+        device = "/swapfile";
+        size = 20480;
+      }
+    ];
 
     # Hibernation resume from encrypted swapfile.
     boot.resumeDevice = "/dev/mapper/cryptroot";
-    boot.kernelParams = [ "resume_offset=164218880" ];
+    boot.kernelParams = ["resume_offset=164218880"];
   };
-
 }

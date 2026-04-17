@@ -1,7 +1,9 @@
-{ self, inputs, ... }: {
-
-  flake.nixosModules.hyprland = { ... }: {
-
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.nixosModules.hyprland = {...}: {
     programs.hyprland = {
       enable = true;
       withUWSM = true;
@@ -11,11 +13,9 @@
       "/share/applications"
       "/share/xdg-desktop-portal"
     ];
-
   };
 
-  flake.homeModules.hyprland = { pkgs, ... }: {
-
+  flake.homeModules.hyprland = {pkgs, ...}: {
     home.packages = with pkgs; [
       brightnessctl
       playerctl
@@ -27,7 +27,6 @@
       enable = true;
 
       settings = {
-
         "exec-once" = [
           "[workspace 1 silent] kitty"
           "[workspace 2 silent] kitty"
@@ -39,11 +38,11 @@
           "[workspace special:spotify silent] spotify"
         ];
 
-        "$mainMod"     = "SUPER";
-        "$terminal"    = "kitty";
-        "$browser"     = "firefox";
+        "$mainMod" = "SUPER";
+        "$terminal" = "kitty";
+        "$browser" = "firefox";
         "$fileExplorer" = "nemo";
-        "$launcher"    = "rofi -show drun";
+        "$launcher" = "rofi -show drun";
 
         bind = [
           # General
@@ -178,7 +177,6 @@
           "4, monitor:desc:Lenovo Group Limited P24q-10 U4P00001"
           "5, monitor:desc:AU Optronics 0xC693"
         ];
-
       };
 
       extraConfig = ''
@@ -215,7 +213,5 @@
         }
       '';
     };
-
   };
-
 }

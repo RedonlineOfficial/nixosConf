@@ -1,5 +1,4 @@
-{ self, ... }: {
-
+{self, ...}: {
   flake.nixosModules.hm-pc-ws-01Disko = {
     disko.devices = {
       disk = {
@@ -17,7 +16,7 @@
                   type = "filesystem";
                   format = "vfat";
                   mountpoint = "/boot";
-                  mountOptions = [ "fmask=0077" "dmask=0077" ];
+                  mountOptions = ["fmask=0077" "dmask=0077"];
                 };
               };
               root = {
@@ -32,7 +31,7 @@
                   content = {
                     type = "filesystem";
                     format = "ext4";
-                    extraArgs = [ "-L" "nixos" ];
+                    extraArgs = ["-L" "nixos"];
                     mountpoint = "/";
                   };
                 };
@@ -43,5 +42,4 @@
       };
     };
   };
-
 }

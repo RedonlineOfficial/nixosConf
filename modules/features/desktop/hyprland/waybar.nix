@@ -1,99 +1,107 @@
-{ self, inputs, ... }: {
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.nixosModules.waybar = {...}: {};
 
-  flake.nixosModules.waybar = { ... }: { };
-
-  flake.homeModules.waybar = { pkgs, config, ... }: {
-
+  flake.homeModules.waybar = {
+    pkgs,
+    config,
+    ...
+  }: {
     stylix.targets.waybar.enable = false;
 
     programs.waybar = {
       enable = true;
       systemd = {
         enable = true;
-        targets = [ "hyprland-session.target" ];
+        targets = ["hyprland-session.target"];
       };
 
-      settings = [{
-        layer    = "top";
-        position = "top";
-        height   = 26;
-        spacing  = 0;
+      settings = [
+        {
+          layer = "top";
+          position = "top";
+          height = 26;
+          spacing = 0;
 
-        modules-left   = [ "hyprland/workspaces" "hyprland/window" ];
-        modules-center = [ "clock" ];
-        modules-right  = [ "pulseaudio" "backlight" "bluetooth" "network" "battery" ];
+          modules-left = ["hyprland/workspaces" "hyprland/window"];
+          modules-center = ["clock"];
+          modules-right = ["pulseaudio" "backlight" "bluetooth" "network" "battery"];
 
-        "hyprland/workspaces" = {
-          format = "{icon}";
-          persistent-workspaces = {
-            "1" = [];
-            "2" = [];
-            "3" = [];
-            "4" = [];
-            "5" = [];
+          "hyprland/workspaces" = {
+            format = "{icon}";
+            persistent-workspaces = {
+              "1" = [];
+              "2" = [];
+              "3" = [];
+              "4" = [];
+              "5" = [];
+            };
+            format-icons = {
+              "1" = ""; # nf-dev-terminal
+              "2" = ""; # nf-dev-terminal
+              "3" = "󰈹"; # nf-md-firefox
+              "4" = "󰍥"; # nf-md-message_text
+              "5" = "󰇮"; # nf-md-email
+              "6" = "⏺"; # nf-oct-dot_fill
+              "7" = "⏺";
+              "8" = "⏺";
+              "9" = "⏺";
+              "special:magic" = "󰎚"; # nf-md-notebook
+              "special:security" = "󰻫"; # nf-md-fingerprint
+              "special:spotify" = "󰓇"; # nf-md-spotify
+              urgent = "";
+            };
           };
-          format-icons = {
-            "1" = "";   # nf-dev-terminal
-            "2" = "";   # nf-dev-terminal
-            "3" = "󰈹"; # nf-md-firefox
-            "4" = "󰍥"; # nf-md-message_text
-            "5" = "󰇮"; # nf-md-email
-            "6" = "⏺"; # nf-oct-dot_fill
-            "7" = "⏺";
-            "8" = "⏺";
-            "9" = "⏺";
-            "special:magic"    = "󰎚"; # nf-md-notebook
-            "special:security" = "󰻫"; # nf-md-fingerprint
-            "special:spotify"  = "󰓇"; # nf-md-spotify
-            urgent = "";
+
+          "hyprland/window" = {
+            max-length = 60;
           };
-        };
 
-        "hyprland/window" = {
-          max-length = 60;
-        };
-
-        clock = {
-          format         = "󰥔 {:%H:%M | 󰃭  %A, %B %d %Y}";
-          tooltip-format = "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>";
-        };
-
-        pulseaudio = {
-          format        = "{icon}  {volume}%";
-          format-muted  = "󰝟  Muted";
-          format-icons.default = [ "󰕿" "󰖀" "󰕾" ];
-          on-click = "pavucontrol";
-        };
-
-        backlight = {
-          format       = "|  {icon}  {percent}%";
-          format-icons = [ "󰃞" "󰃟" "󰃠" ];
-        };
-
-        bluetooth = {
-          format           = "|  󰂯  {status}";
-          format-connected = "|  󰂱  {device_alias}";
-          format-off       = "|  󰂲  Off";
-          on-click         = "pkill bluetui || kitty --class bluetui -e bluetui";
-        };
-
-        network = {
-          format-wifi         = "|  󰤨  {essid}";
-          format-ethernet     = "|  󰈀  Ethernet";
-          format-disconnected = "|  󰤭  Disconnected";
-          tooltip-format      = "{ifname}: {ipaddr}";
-        };
-
-        battery = {
-          format          = "|  {icon}  {capacity}%";
-          format-charging = "|  󰂄  {capacity}%";
-          format-icons    = [ "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
-          states = {
-            warning  = 30;
-            critical = 15;
+          clock = {
+            format = "󰥔 {:%H:%M | 󰃭  %A, %B %d %Y}";
+            tooltip-format = "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>";
           };
-        };
-      }];
+
+          pulseaudio = {
+            format = "{icon}  {volume}%";
+            format-muted = "󰝟  Muted";
+            format-icons.default = ["󰕿" "󰖀" "󰕾"];
+            on-click = "pavucontrol";
+          };
+
+          backlight = {
+            format = "|  {icon}  {percent}%";
+            format-icons = ["󰃞" "󰃟" "󰃠"];
+          };
+
+          bluetooth = {
+            format = "|  󰂯  {status}";
+            format-connected = "|  󰂱  {device_alias}";
+            format-off = "|  󰂲  Off";
+            on-click = "pkill bluetui || kitty --class bluetui -e bluetui";
+          };
+
+          network = {
+            format-wifi = "|  󰤨  {essid}";
+            format-ethernet = "|  󰈀  Ethernet";
+            format-disconnected = "|  󰤭  Disconnected";
+            tooltip-format = "{ifname}: {ipaddr}";
+          };
+
+          battery = {
+            format = "|  {icon}  {capacity}%";
+            format-charging = "|  󰂄  {capacity}%";
+            format-icons = ["󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
+            states = {
+              warning = 30;
+              critical = 15;
+            };
+          };
+        }
+      ];
 
       style = with config.lib.stylix.colors; ''
         * {
@@ -201,7 +209,5 @@
         }
       '';
     };
-
   };
-
 }
