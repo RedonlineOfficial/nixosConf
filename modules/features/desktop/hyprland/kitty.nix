@@ -12,6 +12,8 @@
         scrollback_pager_history_size = 10;
         scrollback_fill_enlarged_window = true;
 
+        enabled_layouts = "splits";
+
         tab_bar_edge = "top";
         tab_bar_style = "custom";
         tab_bar_min_tabs = 1;
