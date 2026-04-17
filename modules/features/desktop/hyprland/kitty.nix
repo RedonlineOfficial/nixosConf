@@ -27,8 +27,8 @@
         "ctrl+shift+[" = "previous_tab";
 
         # Window splits (vim-like)
-        "ctrl+|" = "launch --location=vsplit --cwd=current";
-        "ctrl+-" = "launch --location=hsplit --cwd=current";
+        "ctrl+shift+backslash" = "launch --location=vsplit --cwd=current";
+        "ctrl+shift+minus"     = "launch --location=hsplit --cwd=current";
 
         # Window focus (vim-like hjkl — remaps kitty defaults)
         "ctrl+shift+h" = "neighboring_window left";
