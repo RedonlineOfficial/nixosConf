@@ -36,6 +36,7 @@ in {
         self.homeModules.metaHyprland
         self.homeModules.git
         self.homeModules.zsh
+        self.homeModules.neovim
       ];
 
       home.username = userName;
