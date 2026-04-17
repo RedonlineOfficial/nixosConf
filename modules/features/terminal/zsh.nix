@@ -115,7 +115,7 @@
         ":q" = "exit";
       };
 
-      initExtra = ''
+      initContent = ''
         # --- functions ---
         function extract() {
           if [ $# -eq 0 ]; then
