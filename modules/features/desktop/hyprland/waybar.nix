@@ -3,8 +3,6 @@
   inputs,
   ...
 }: {
-  flake.nixosModules.waybar = {...}: {};
-
   flake.homeModules.waybar = {
     pkgs,
     config,

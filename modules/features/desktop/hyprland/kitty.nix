@@ -3,8 +3,6 @@
   inputs,
   ...
 }: {
-  flake.nixosModules.kitty = {...}: {};
-
   flake.homeModules.kitty = {...}: {
     programs.kitty = {
       enable = true;

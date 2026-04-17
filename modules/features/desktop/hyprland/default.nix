@@ -8,10 +8,6 @@
       self.nixosModules.commonDesktop
       self.nixosModules.hyprland
       self.nixosModules.ly
-      self.nixosModules.waybar
-      self.nixosModules.mako
-      self.nixosModules.kitty
-      self.nixosModules.nemo
     ];
   };
 
