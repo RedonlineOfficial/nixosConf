@@ -56,7 +56,6 @@
 
       shellAliases = {
         # --- Nixos ---
-        rebuild = "sudo nixos-rebuild switch --flake ~/nixosConf#";
         # --- Zsh ---
         reload = "exec zsh";
 
@@ -120,6 +119,19 @@
 
       initContent = ''
         # --- functions ---
+        function rebuild-nix() {
+          local confDir="''${1:-"$HOME/nixosConf"}"
+          local host="''${2:-$(hostname -s)}"
+
+          sudo nixos-rebuild switch --flake $confDir#$host
+        }
+
+        function rebuild-home() {
+          local confDir="''${1:-"$HOME/nixosConf"}"
+          local user="''${2:-$(whoami)}"
+
+          home-manager switch --flake $confDir#$user
+        }
         function extract() {
           if [ $# -eq 0 ]; then
             echo "Usage: extract <file>"
