@@ -15,9 +15,9 @@ in {
       shell = pkgs.zsh;
       packages = with pkgs; [
         claude-code
-        age # age-keygen for generating admin key
-        sops # encrypt/decrypt secrets files
-        ssh-to-age # convert SSH ed25519 public keys to age public keys
+        age
+        sops
+        ssh-to-age
         alejandra
       ];
       openssh.authorizedKeys.keys = [
@@ -27,39 +27,52 @@ in {
 
     security.sudo.wheelNeedsPassword = true;
 
-    home-manager.users.${userName} = {
-      imports = [
-        self.homeModules.metaHyprland
-        self.homeModules.metaTerminal
+    home-manager.users.${userName}.imports = [self.homeModules.joshuaHome];
+  };
+
+  flake.homeModules.joshuaHome = {...}: {
+    imports = [
+      self.homeModules.metaHyprland
+      self.homeModules.metaTerminal
+    ];
+
+    home.username = userName;
+    home.homeDirectory = "/home/${userName}";
+    home.stateVersion = "25.11";
+
+    gtk.gtk4.theme = null;
+
+    programs.gpg = {
+      enable = true;
+      publicKeys = [
+        {
+          source = ./gpg-pubkey.asc;
+          trust = "ultimate";
+        }
       ];
-
-      home.username = userName;
-      home.homeDirectory = "/home/${userName}";
-      home.stateVersion = "25.11";
-
-      gtk.gtk4.theme = null;
-
-      programs.gpg = {
-        enable = true;
-        publicKeys = [
-          {
-            source = ./gpg-pubkey.asc;
-            trust = "ultimate";
-          }
-        ];
-        scdaemonSettings = {
-          disable-ccid = true;
-          pcsc-shared = true;
-        };
-      };
-
-      # Register the YubiKey auth subkey keygrip for SSH use via gpg-agent
-      home.file.".gnupg/sshcontrol" = {
-        force = true;
-        text = ''
-          5DF8A48A7D0C6D87A9EDD14327E21DD87DC90C1F
-        '';
+      scdaemonSettings = {
+        disable-ccid = true;
+        pcsc-shared = true;
       };
     };
+
+    home.file.".gnupg/sshcontrol" = {
+      force = true;
+      text = ''
+        5DF8A48A7D0C6D87A9EDD14327E21DD87DC90C1F
+      '';
+    };
+  };
+
+  flake.homeConfigurations.${userName} = inputs.home-manager.lib.homeManagerConfiguration {
+    pkgs = import inputs.nixpkgs {
+      system = "x86_64-linux";
+      config.allowUnfree = true;
+    };
+    extraSpecialArgs = {inherit inputs self;};
+    modules = [
+      self.homeModules.stylix
+      self.homeModules.joshuaHome
+    ];
   };
 }
