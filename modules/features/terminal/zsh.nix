@@ -98,6 +98,7 @@
         gds = "git diff --staged";
         gpl = "git pull";
         gu = "git reset --soft HEAD~1";
+        gcl = "git clone";
 
         # Kitty
         ks = "kitten ssh";
@@ -109,7 +110,7 @@
         # --- LS Deluxe ---
         l = "lsd -A --group-directories-first";
         ll = "l -lh --header --git";
-        lt = "l --tree";
+        lt = "l --tree -I \.git";
         llt = "ll --tree";
 
         # --- Miscellaneous ---
